@@ -1,0 +1,402 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Prashanth",
+      "emailOrPhone": "prashanthaousula@gmail.com",
+      "password": "11111"
+    },
+    {
+      "id": "u2",
+      "name": "Pearl Thoghts",
+      "emailOrPhone": "p1@gmail.com",
+      "password": "11111"
+    },
+    {
+      "id": "7e8d12a0-743f-466e-84dc-94eaafd93290",
+      "name": "",
+      "emailOrPhone": "a@a.com",
+      "password": "11"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "d1",
+      "doctoremailOrphone": "drkumar@gmail.com",
+      "password": "111",
+      "role": "doctor",
+      "name": "Dr. Kumar Das",
+      "specialization": "Ophthalmologist",
+      "degree": "MBBS, MS (Surgeon)",
+      "experience": 10,
+      "patients": "5000+",
+      "rating": 4.8,
+      "reviews": 4942,
+      "services": [
+        "Cataract Surgery",
+        "Glaucoma Treatment",
+        "Vision Testing"
+      ],
+      "about": "Experienced eye specialist...",
+      "availability": {
+        "days": "Mon-Fri",
+        "time": "10AM - 5PM"
+      },
+      "location": "Vision Care Center, Mumbai",
+      "phone": "0987654321",
+      "fee": "400 INR",
+      "image": "/Imgs/DoctorsImg/dr2.jpg",
+      "reviewList": [
+        {
+          "userId": "u1",
+          "name": "Ravi S.",
+          "date": "2025-01-10",
+          "rating": 5,
+          "comment": "Professional and friendly."
+        },
+        {
+          "name": "a",
+          "date": "July 31, 2025",
+          "rating": 5,
+          "comment": "a"
+        }
+      ]
+    },
+    {
+      "id": "d2",
+      "doctoremailOrphone": "drshikha@gmail.com",
+      "password": "111",
+      "name": "Dr. Shikha",
+      "specialization": "Dermatologist",
+      "degree": "MBBS, MD",
+      "experience": 12,
+      "patients": "3200+",
+      "rating": 4.7,
+      "reviews": 2876,
+      "services": [
+        "Acne Treatment",
+        "Laser Hair Removal",
+        "Skin Allergy Testing"
+      ],
+      "about": "Skin specialist for acne...",
+      "availability": {
+        "days": "Tue-Sat",
+        "time": "9AM - 3PM"
+      },
+      "location": "Radiant Skin Clinic, Delhi",
+      "phone": "0912345678",
+      "fee": "500 INR",
+      "image": "/Imgs/DoctorsImg/dr1.jpg",
+      "reviewList": [
+        {
+          "userId": "u1",
+          "name": "Neha M.",
+          "date": "2025-02-05",
+          "rating": 4,
+          "comment": "Helpful treatment."
+        },
+        {
+          "name": "pa",
+          "date": "August 1, 2025",
+          "rating": 5,
+          "comment": "as"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "doctoremailOrphone": "drrajeev@gmail.com",
+      "password": "111",
+      "name": "Dr. Rajeev sing Kapoor ",
+      "specialization": "Orthopedic Surgeon",
+      "degree": "MBBS, MS (Ortho)",
+      "about": "Specialist in knee and hip replacements with 20+ years of experience.",
+      "patients": "7000+",
+      "experience": "22",
+      "rating": "4.9",
+      "reviews": "6100",
+      "service": "OrthoCare",
+      "availability": {
+        "days": "Monday, Wednesday, Friday",
+        "time": "10 AM to 9 PM"
+      },
+      "image": "/Imgs/DoctorsImg/dr3.jpg",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "896543210",
+      "fee": "600 INR",
+      "title": "Joint Replacement Expert",
+      "services": [
+        "Knee Replacement",
+        "Fracture Treatment",
+        "Sports Injuries"
+      ],
+      "reviewList": [
+        {
+          "name": "Amit T.",
+          "date": "March 3, 2024",
+          "rating": 5,
+          "comment": "Best ortho I’ve consulted. Clear advice and treatment."
+        },
+        {
+          "name": "nice",
+          "date": "August 1, 2025",
+          "rating": 4,
+          "comment": "aa"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "doctoremailOrphone": "drfarah@gmail.com",
+      "password": "111",
+      "name": "Dr. Farah Siddiqui",
+      "specialization": "Pediatrician",
+      "degree": "MBBS, DCH",
+      "about": "Pediatric consultant for children’s health, growth, and vaccinations.",
+      "patients": "4500+",
+      "experience": "10",
+      "rating": "4.6",
+      "reviews": "3987",
+      "service": "ChildWell",
+      "availability": {
+        "days": "Monday,Thursday,Sunday",
+        "time": "8 AM to 2 PM"
+      },
+      "image": "/Imgs/DoctorsImg/dr1.jpg",
+      "location": "Happy Kids Clinic, Lucknow",
+      "phone": "0888123456",
+      "fee": "350 INR",
+      "title": "Child Health Specialist",
+      "services": [
+        "Vaccinations",
+        "Nutrition Advice",
+        "Growth Monitoring"
+      ],
+      "reviewList": [
+        {
+          "name": "Priya B.",
+          "date": "April 20, 2024",
+          "rating": 4.5,
+          "comment": "Takes great care of kids. Answers every concern."
+        }
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "id": "adf3",
+      "patientName": "Pearl Prashanth",
+      "phoneNumber": "11",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "doctorId": "4",
+      "doctorName": "Dr. Farah Siddiqui",
+      "doctorImage": "/Imgs/DoctorsImg/dr1.jpg",
+      "specialization": "Pediatrician",
+      "fee": "350 INR",
+      "location": "Happy Kids Clinic, Lucknow",
+      "phone": "0888123456",
+      "status": "confirmed",
+      "cancelledBy": null,
+      "rating": "4.6",
+      "reviews": "3987",
+      "appointmentDate": "2025-07-30",
+      "appointmentTime": "11:00 am"
+    },
+    {
+      "id": "2a6b",
+      "patientName": "pa",
+      "phoneNumber": "11",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "doctorId": "1",
+      "doctorName": "Dr. Kumar Das",
+      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
+      "specialization": "Ophthalmologist",
+      "fee": "400 INR",
+      "location": "Vision Care Center, Mumbai",
+      "phone": "0987654321",
+      "status": "booked",
+      "cancelledBy": null,
+      "rating": "4.8",
+      "reviews": "4942",
+      "appointmentDate": "2025-07-30",
+      "appointmentTime": "1:00 pm"
+    },
+    {
+      "id": "95ee",
+      "patientName": "q",
+      "phoneNumber": "1",
+      "gender": "Female",
+      "paymentMethod": "Cash",
+      "cardNumber": "q",
+      "expiry": "s",
+      "cvv": "3",
+      "doctorId": "1",
+      "doctorName": "Dr. Kumar Das",
+      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
+      "specialization": "Ophthalmologist",
+      "fee": "400 INR",
+      "location": "Vision Care Center, Mumbai",
+      "phone": "0987654321",
+      "status": "booked",
+      "cancelledBy": null,
+      "rating": "4.8",
+      "reviews": "4942",
+      "appointmentDate": "2025-07-30",
+      "appointmentTime": "1:00 pm"
+    },
+    {
+      "id": "06ef",
+      "patientName": "Pearl Prashanth",
+      "phoneNumber": "11",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "doctorId": "1",
+      "doctorName": "Dr. Kumar Das",
+      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
+      "specialization": "Ophthalmologist",
+      "fee": "400 INR",
+      "location": "Vision Care Center, Mumbai",
+      "phone": "0987654321",
+      "status": "booked",
+      "cancelledBy": null,
+      "rating": "4.8",
+      "reviews": "4942",
+      "appointmentDate": "2025-07-30",
+      "appointmentTime": "3:30 pm"
+    },
+    {
+      "id": "3667",
+      "patientName": "11",
+      "phoneNumber": "11",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3",
+      "doctorName": "Dr. Rajeev Kapoor",
+      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
+      "specialization": "Orthopedic Surgeon",
+      "fee": "600 INR",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "0896543210",
+      "status": "rescheduled",
+      "rating": "4.9",
+      "reviews": "6100",
+      "appointmentDate": "2025-08-22",
+      "appointmentTime": "12:38",
+      "title": "Patient: 11 (rescheduled)",
+      "start": "2025-08-08T07:08:00.000Z",
+      "end": "2025-08-08T07:38:00.000Z",
+      "allDay": false,
+      "cancelledBy": "doctor"
+    },
+    {
+      "id": "9a4d",
+      "patientName": "Pearl Prashanth",
+      "phoneNumber": "66",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "4",
+      "doctorName": "Dr. Farah Siddiqui",
+      "doctorImage": "/Imgs/DoctorsImg/dr1.jpg",
+      "specialization": "Pediatrician",
+      "fee": "350 INR",
+      "location": "Happy Kids Clinic, Lucknow",
+      "phone": "0888123456",
+      "status": "rescheduled",
+      "rating": "4.6",
+      "reviews": "3987",
+      "appointmentDate": "2025-08-04",
+      "appointmentTime": "09:00"
+    },
+    {
+      "id": "9996",
+      "patientName": "A Prashanth",
+      "phoneNumber": "11",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3",
+      "doctorName": "Dr. Rajeev sing Kapoor ",
+      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
+      "specialization": "Orthopedic Surgeon",
+      "fee": "600 INR",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "896543210",
+      "status": "booked",
+      "rating": "4.9",
+      "reviews": "6100",
+      "appointmentDate": "2025-08-07",
+      "appointmentTime": "6:30 pm"
+    },
+    {
+      "id": "c556",
+      "patientName": "prashantn",
+      "phoneNumber": "1122",
+      "gender": "Female",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3",
+      "doctorName": "Dr. Rajeev sing Kapoor ",
+      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
+      "specialization": "Orthopedic Surgeon",
+      "fee": "600 INR",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "896543210",
+      "status": "booked",
+      "rating": "4.9",
+      "reviews": "6100",
+      "appointmentDate": "2025-08-31",
+      "appointmentTime": "6:00 pm"
+    }
+  ],
+  "specializations": [
+    {
+      "id": "s1",
+      "name": "Cardiologist"
+    },
+    {
+      "id": "s2",
+      "name": "Dermatologist"
+    },
+    {
+      "id": "s3",
+      "name": "Orthopedic Surgeon"
+    },
+    {
+      "id": "s4",
+      "name": "Pediatrician"
+    },
+    {
+      "id": "s5",
+      "name": "Ophthalmologist"
+    },
+    {
+      "id": "s6",
+      "name": "Gastroenterologist"
+    }
+  ]
+}

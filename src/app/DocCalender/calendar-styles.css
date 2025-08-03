@@ -1,0 +1,86 @@
+/* Overall container */
+.custom-calendar {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* Header (Month/Week/Day) */
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.rbc-toolbar button {
+  background: #fff;
+  margin-right: 0.5rem;
+  border-radius: 8px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.rbc-toolbar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
+}
+
+.rbc-toolbar button.rbc-active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Month cells */
+.rbc-month-view {
+  padding: 16px;
+}
+
+.rbc-month-row {
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.rbc-day-bg {
+  transition: background 0.3s ease;
+}
+
+.rbc-day-bg:hover {
+  background: #e0f2fe;
+}
+
+/* Event styles */
+.rbc-event {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.rbc-event:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Tooltip */
+.rbc-event-label {
+  display: none;
+}
+
+/* Today highlight */
+.rbc-today {
+  background: #f0f9ff !important;
+}
+
+/* Day names */
+.rbc-header {
+  background: #f8fafc;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
