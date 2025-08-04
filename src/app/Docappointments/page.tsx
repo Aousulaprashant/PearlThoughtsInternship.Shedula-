@@ -169,7 +169,6 @@ export default function DoctorAppointments() {
             {filteredAppointments.map((appt) => (
               <AppointmentCardDoctor
                 key={appt.id}
-                href={``}
                 appointment={appt}
                 onConfirm={() => handleConfirm(appt.id)}
                 onReschedule={() => handleReschedule(appt)}

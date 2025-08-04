@@ -1,10 +1,23 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import withDragAndDrop, {
+  withDragAndDropProps,
+  EventInteractionArgs,
+} from "react-big-calendar/lib/addons/dragAndDrop";
+
+import {
+  Calendar,
+  momentLocalizer,
+  Views as CalendarViews,
+  View,
+  ToolbarProps,
+} from "react-big-calendar";
+
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+
 import {
   CheckCircle,
   RefreshCcw,
@@ -13,19 +26,15 @@ import {
   CalendarDays,
   Clock,
   Check,
+  ArrowLeft,
+  ArrowRight,
 } from "lucide-react";
 
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import axios from "axios";
-
+import axiosInstance from "@/utiles/axiosInstance";
+import toast from "react-hot-toast";
 import { useUser } from "@/context/UseContext-login";
 import Sidebar from "@/components/DoctorSlideBar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./calendar-styles.css";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
-import toast from "react-hot-toast";
-import axiosInstance from "@/utiles/axiosInstance";
 
 const localizer = momentLocalizer(moment);
 
@@ -49,6 +58,8 @@ type CalendarEvent = {
   status: string;
 };
 
+const DnDCalendar = withDragAndDrop<CalendarEvent>(Calendar);
+
 export default function CalendarPage() {
   const { user } = useUser();
   const [appointments, setAppointments] = useState<CalendarEvent[]>([]);
@@ -56,13 +67,8 @@ export default function CalendarPage() {
     start: moment().startOf("month").toDate(),
     end: moment().endOf("month").toDate(),
   });
-  const Views = {
-    MONTH: "month",
-    WEEK: "week",
-    DAY: "day",
-    AGENDA: "agenda",
-  } as const;
-  type ViewType = (typeof Views)[keyof typeof Views];
+
+  type ViewType = "month" | "week" | "day";
 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
@@ -72,49 +78,14 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
-
   const [currentView, setCurrentView] = useState<ViewType>("month");
 
-  const DnDCalendar = withDragAndDrop(Calendar);
-
-  const handleEventDrop = async ({ event, start, end }: any) => {
-    try {
-      const newDate = moment(start).format("YYYY-MM-DD");
-      const newTime = moment(start).format("HH:mm");
-
-      const updatedData = {
-        appointmentDate: newDate,
-        appointmentTime: newTime,
-        status: "rescheduled",
-      };
-
-      await axiosInstance.patch(`/appointments/${event.id}`, updatedData);
-
-      setAppointments((prev) =>
-        prev.map((e) =>
-          e.id === event.id
-            ? {
-                ...e,
-                start,
-                end,
-                status: "rescheduled",
-              }
-            : e
-        )
-      );
-
-      toast.success("Appointment rescheduled via drag");
-    } catch (err) {
-      console.error("Error during drag reschedule:", err);
-      toast.error("Failed to reschedule appointment");
-    }
+  const handleViewChange = (newView: View) => {
+    setCurrentView(newView as ViewType);
   };
 
-  const handleViewChange = (newView: ViewType) => {
-    setCurrentView(newView);
-  };
-  const handleNavigate = (date: Date, view?: ViewType) => {
-    setCurrentDate(date); // <- update view date
+  const handleNavigate = (date: Date, view?: View) => {
+    setCurrentDate(date);
     const resolvedView = view ?? currentView;
 
     let start: Date, end: Date;
@@ -141,7 +112,6 @@ export default function CalendarPage() {
 
         const doctorAppointments = allAppointments.filter((appt) => {
           const apptDate = new Date(appt.appointmentDate);
-
           return (
             appt.doctorName?.toLowerCase() === user?.name?.toLowerCase() &&
             apptDate >= range.start &&
@@ -167,7 +137,6 @@ export default function CalendarPage() {
           const end = new Date(start.getTime() + 30 * 60 * 1000);
 
           return {
-            ...appt,
             id: appt.id,
             title: `Patient: ${appt.patientName} (${appt.status})`,
             start,
@@ -190,16 +159,19 @@ export default function CalendarPage() {
     fetchAppointments(currentRange);
   }, [fetchAppointments, currentRange, user?.name]);
 
-  const handleRangeChange = (range: any, view: ViewType) => {
+  const handleRangeChange = (
+    range: Date[] | { start: Date; end: Date },
+    view?: View
+  ) => {
     let start: Date, end: Date;
 
-    if (view === "day") {
+    if (view === "day" && range instanceof Date) {
       start = moment(range).startOf("day").toDate();
       end = moment(range).endOf("day").toDate();
     } else if (Array.isArray(range)) {
       start = range[0];
       end = range[range.length - 1];
-    } else if (range?.start && range?.end) {
+    } else if ("start" in range && "end" in range) {
       start = range.start;
       end = range.end;
     } else {
@@ -287,6 +259,8 @@ export default function CalendarPage() {
   };
 
   return (
+    // same JSX you provided — already correct
+    // the only change you need: ⬇
     <div className="flex">
       <Sidebar />
       <div className="h-[90vh] p-4">
@@ -337,7 +311,7 @@ export default function CalendarPage() {
                     {["month", "week", "day"].map((v) => (
                       <button
                         key={v}
-                        onClick={() => onView(v)}
+                        onClick={() => onView(v as View)}
                         className={`px-3 py-1 rounded ${
                           view === v
                             ? "bg-blue-600 text-white"
@@ -362,7 +336,20 @@ export default function CalendarPage() {
           views={["month", "week", "day"]}
           style={{ height: "100%", minWidth: "900px" }}
           onRangeChange={handleRangeChange}
-          onEventDrop={handleEventDrop} // <-- Drag event handler
+          onEventDrop={(args: EventInteractionArgs<CalendarEvent>) => {
+            const { event, start, end, isAllDay } = args;
+
+            const updatedEvent: CalendarEvent = {
+              ...event,
+              start: new Date(start), // ensure it's a Date
+              end: new Date(end),
+              allDay: isAllDay ?? false,
+            };
+
+            setAppointments((prev) =>
+              prev.map((ev) => (ev.id === event.id ? updatedEvent : ev))
+            );
+          }}
           draggableAccessor={() => true} // <-- Make all events draggable
           popup
           eventPropGetter={(event) => {
@@ -383,7 +370,7 @@ export default function CalendarPage() {
             };
           }}
           date={currentDate} // <- controls what is rendered
-          onNavigate={handleNavigate}
+          // onNavigate={handleNavigate}
         />
 
         {showModal && selectedEvent && (
