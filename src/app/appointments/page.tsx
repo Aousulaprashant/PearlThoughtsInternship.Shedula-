@@ -38,12 +38,16 @@ export default function AppointmentsPage() {
       try {
         const res = await axiosInstance.get("/appointments");
         const allAppointments: Appointment[] = res.data;
+        console.log(res);
+        console.log("allAppointments", allAppointments);
 
         const userAppointments = allAppointments.filter(
           (appt) =>
-            // appt.patientId === user.id ||
+            appt.patientId === user.id ||
             appt.patientName?.toLowerCase() === user.name?.toLowerCase()
         );
+
+        console.log("userAppointments", userAppointments);
 
         setAppointments(userAppointments);
       } catch (error) {
