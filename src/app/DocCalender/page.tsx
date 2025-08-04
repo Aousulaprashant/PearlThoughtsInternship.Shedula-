@@ -178,21 +178,17 @@ export default function CalendarPage() {
         });
 
         setAppointments(events);
-        console.log(user?.id, doctorAppointments);
-
-        console.log(events, "ebents");
-        console.log(events);
       } catch (err) {
         console.error("Error fetching appointments", err);
       }
     },
-    [user?.id]
+    [user?.name]
   );
 
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.name) return;
     fetchAppointments(currentRange);
-  }, [fetchAppointments, currentRange, user?.id]);
+  }, [fetchAppointments, currentRange, user?.name]);
 
   const handleRangeChange = (range: any, view: ViewType) => {
     let start: Date, end: Date;
