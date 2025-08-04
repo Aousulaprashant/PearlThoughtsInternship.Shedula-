@@ -27,10 +27,11 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
-    router.push("/");
+    setTimeout(() => {
+      router.replace("/");
+    }, 0);
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -63,7 +64,6 @@ const Header = () => {
         </div>
 
         {user?.role === "doctor" ? (
-          // 👇 Doctor Dropdown Section 👇
           <>
             <div className="relative" ref={menuRef}>
               <button
