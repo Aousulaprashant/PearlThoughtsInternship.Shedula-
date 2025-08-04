@@ -56,6 +56,14 @@ export default function CalendarPage() {
     start: moment().startOf("month").toDate(),
     end: moment().endOf("month").toDate(),
   });
+  const Views = {
+    MONTH: "month",
+    WEEK: "week",
+    DAY: "day",
+    AGENDA: "agenda",
+  } as const;
+  type ViewType = (typeof Views)[keyof typeof Views];
+
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
   );
@@ -65,7 +73,7 @@ export default function CalendarPage() {
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
 
-  const [currentView, setCurrentView] = useState<Views>("month");
+  const [currentView, setCurrentView] = useState<ViewType>("month");
 
   const DnDCalendar = withDragAndDrop(Calendar);
 
