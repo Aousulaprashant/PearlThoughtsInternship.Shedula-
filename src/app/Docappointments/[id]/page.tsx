@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 import { useUser } from "@/context/UseContext-login";
 import toast from "react-hot-toast";
 import RescheduleModal from "@/components/RescheduleModal";
@@ -33,7 +33,7 @@ export default function AppointmentDetailPage() {
 
     const fetchAppointment = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/appointments");
+        const res = await axiosInstance.get("/appointments");
         const all: Appointment[] = res.data;
         const target = all.find((a) => a.id === id);
 
@@ -57,10 +57,7 @@ export default function AppointmentDetailPage() {
     const updated = { ...appointment, status, ...updatedFields };
 
     try {
-      await axios.put(
-        `http://localhost:5000/appointments/${appointment.id}`,
-        updated
-      );
+      await axiosInstance.put(`/appointments/${appointment.id}`, updated);
       setAppointment(updated);
       toast.success(`Appointment ${status}`);
     } catch (err) {

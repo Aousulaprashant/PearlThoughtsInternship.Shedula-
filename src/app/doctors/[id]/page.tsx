@@ -11,6 +11,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { motion } from "framer-motion";
 import ReceiptPage from "@/components/Reciptpage";
+import axiosInstance from "@/utiles/axiosInstance";
 
 type Review = {
   name: string;
@@ -197,8 +198,8 @@ const DoctorDetails = () => {
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/doctors/${id}`);
-        const data = (await res.json()) as Doctor;
+        const res = await axiosInstance.get(`/doctors/${id}`);
+        const data = res.data as Doctor;
         setDoctorData(data);
       } catch (error) {
         console.error("Error fetching doctor data:", error);
@@ -269,15 +270,9 @@ const DoctorDetails = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      const res = await axiosInstance.post("/appointments", payload);
 
-      if (res.ok) {
+      if (res.status === 201) {
         setAppointmentDetails(payload); // This sets data for Receipt
         setConfirmationOpen(true); // Show modal
 

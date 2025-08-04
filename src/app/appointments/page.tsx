@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "@/context/UseContext-login";
 import AppointmentCard from "@/components/AppointmentCardPatiant";
@@ -35,7 +35,7 @@ export default function AppointmentsPage() {
 
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/appointments");
+        const res = await axiosInstance.get("/appointments");
         const allAppointments: Appointment[] = res.data;
 
         const userAppointments = allAppointments.filter(
@@ -57,7 +57,7 @@ export default function AppointmentsPage() {
 
   const handleCancel = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/appointments/${id}`);
+      await axiosInstance.delete(`/appointments/${id}`);
       setAppointments((prev) => prev.filter((appt) => appt.id !== id));
       toast.success("Appointment cancelled");
     } catch (err) {
@@ -79,10 +79,7 @@ export default function AppointmentsPage() {
         appointmentTime: newTime,
       };
 
-      await axios.put(
-        `http://localhost:5000/appointments/${selectedAppt.id}`,
-        updated
-      );
+      await axiosInstance.put(`/appointments/${selectedAppt.id}`, updated);
 
       setAppointments((prev) =>
         prev.map((appt) => (appt.id === selectedAppt.id ? updated : appt))
@@ -97,7 +94,7 @@ export default function AppointmentsPage() {
   };
 
   const filteredAppointments = appointments.filter((appt) => {
-    const status = appt.status?.toLowerCase();
+    const status = appt?.status?.toLowerCase();
 
     if (activeSection === "Pending") {
       return status === "booked";

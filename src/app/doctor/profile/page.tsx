@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "@/context/UseContext-login";
 import { motion } from "framer-motion";
@@ -25,8 +25,8 @@ const DoctorProfile = () => {
   useEffect(() => {
     if (!user || user.role !== "doctor") return;
 
-    axios
-      .get(`http://localhost:5000/doctors/${user.id}`)
+    axiosInstance
+      .get(`/doctors/${user.id}`)
       .then((res) => {
         setFormData(res.data);
         setLoading(false);
@@ -82,7 +82,7 @@ const DoctorProfile = () => {
 
   const saveProfile = async () => {
     try {
-      await axios.put(`http://localhost:5000/doctors/${user.id}`, formData);
+      await axiosInstance.put(`/doctors/${user.id}`, formData);
       toast.success("Profile updated!");
     } catch {
       toast.error("Update failed!");

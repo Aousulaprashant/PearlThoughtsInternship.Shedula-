@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import axiosInstance from "@/utiles/axiosInstance";
+import React, { useState } from "react";
 
 type Review = {
   name: string;
@@ -27,14 +28,14 @@ interface ReviewFormProps {
 
 const ReviewForm: React.FC<ReviewFormProps> = ({
   doctorId,
-  apiBaseUrl = 'http://localhost:5000',
+  apiBaseUrl = "http://localhost:5000",
   onAfterSubmit,
 }) => {
   // --- Review form state ---
   const [reviewForm, setReviewForm] = useState({
-    name: '',
+    name: "",
     rating: 5,
-    comment: '',
+    comment: "",
   });
   const [postingReview, setPostingReview] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
@@ -47,7 +48,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
     setReviewSuccess(null);
 
     if (!reviewForm.name.trim() || !reviewForm.comment.trim()) {
-      setReviewError('Please enter your name and a comment.');
+      setReviewError("Please enter your name and a comment.");
       return;
     }
 
@@ -56,45 +57,48 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
       // Build the new review
       const newReview: Review = {
         name: reviewForm.name.trim(),
-        date: new Date().toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric',
+        date: new Date().toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
         }),
         rating: Number(reviewForm.rating),
         comment: reviewForm.comment.trim(),
       };
 
       // 1) Get the latest doctor (ensures we patch against current data)
-      const getRes = await fetch(`${apiBaseUrl}/doctors/${doctorId}`);
-      if (!getRes.ok) throw new Error('Failed fetching doctor before patch.');
-      const latest: DoctorResponse = await getRes.json();
+      const getRes = await axiosInstance.get<DoctorResponse>(
+        `/doctors/${doctorId}`
+      );
+
+      const latest = getRes.data;
 
       const updatedReviewList: Review[] = Array.isArray(latest.reviewList)
         ? [...latest.reviewList, newReview]
         : [newReview];
 
       // 2) PATCH just the reviewList (json-server supports partial updates)
-      const patchRes = await fetch(`${apiBaseUrl}/doctors/${doctorId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reviewList: updatedReviewList }),
+      const patchRes = await axiosInstance.patch(`/doctors/${doctorId}`, {
+        reviewList: updatedReviewList,
       });
-      if (!patchRes.ok) throw new Error('Failed saving review.');
 
-      // 3) Notify parent so it can update local doctor state (rating count, list, etc.)
-      const currentCount =
-        typeof latest.reviews === 'number'
-          ? latest.reviews
-          : Number(latest.reviews || 0);
-      onAfterSubmit?.(updatedReviewList, currentCount + 1);
+      if (patchRes.status >= 200 && patchRes.status < 300) {
+        // 3) Notify parent so it can update local doctor state (rating count, list, etc.)
+        const currentCount =
+          typeof latest.reviews === "number"
+            ? latest.reviews
+            : Number(latest.reviews || 0);
+        onAfterSubmit?.(updatedReviewList, currentCount + 1);
 
-      // Clear form
-      setReviewForm({ name: '', rating: 5, comment: '' });
-      setReviewSuccess('Thanks! Your review was submitted.');
+        // Clear form
+        setReviewForm({ name: "", rating: 5, comment: "" });
+        setReviewSuccess("Thanks! Your review was submitted.");
+      } else {
+        throw new Error("Failed saving review.");
+      }
     } catch (err: any) {
       setReviewError(
-        err?.message || 'Something went wrong while posting your review.'
+        err?.message || "Something went wrong while posting your review."
       );
     } finally {
       setPostingReview(false);
@@ -152,7 +156,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           className="w-full bg-blue-600 text-white py-2 rounded-lg"
           disabled={postingReview}
         >
-          {postingReview ? 'Submitting…' : 'Submit Review'}
+          {postingReview ? "Submitting…" : "Submit Review"}
         </button>
       </form>
     </div>

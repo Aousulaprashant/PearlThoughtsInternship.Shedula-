@@ -25,7 +25,7 @@ import "./calendar-styles.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import toast from "react-hot-toast";
-import CalendarHeader from "./HeaderCalender";
+import axiosInstance from "@/utiles/axiosInstance";
 
 const localizer = momentLocalizer(moment);
 
@@ -80,10 +80,7 @@ export default function CalendarPage() {
         status: "rescheduled",
       };
 
-      await axios.patch(
-        `http://localhost:5000/appointments/${event.id}`,
-        updatedData
-      );
+      await axiosInstance.patch(`/appointments/${event.id}`, updatedData);
 
       setAppointments((prev) =>
         prev.map((e) =>
@@ -131,13 +128,14 @@ export default function CalendarPage() {
   const fetchAppointments = useCallback(
     async (range: { start: Date; end: Date }) => {
       try {
-        const res = await axios.get("http://localhost:5000/appointments");
+        const res = await axiosInstance.get("/appointments");
         const allAppointments: Appointment[] = res.data;
 
         const doctorAppointments = allAppointments.filter((appt) => {
           const apptDate = new Date(appt.appointmentDate);
+          console.log(appt.doctorId, user?.id);
           return (
-            appt.doctorId === user?.id &&
+            appt.doctorName?.toLowerCase() === user?.name?.toLowerCase() &&
             apptDate >= range.start &&
             apptDate <= range.end
           );
@@ -172,6 +170,10 @@ export default function CalendarPage() {
         });
 
         setAppointments(events);
+        console.log(user?.id, doctorAppointments);
+
+        console.log(events, "ebents");
+        console.log(events);
       } catch (err) {
         console.error("Error fetching appointments", err);
       }
@@ -217,8 +219,8 @@ export default function CalendarPage() {
     };
 
     try {
-      await axios.put(
-        `http://localhost:5000/appointments/${selectedEvent.id}`,
+      await axiosInstance.put(
+        `/appointments/${selectedEvent.id}`,
         updatedAppointment
       );
 
@@ -250,8 +252,8 @@ export default function CalendarPage() {
     };
 
     try {
-      await axios.patch(
-        `http://localhost:5000/appointments/${selectedEvent.id}`,
+      await axiosInstance.patch(
+        `/appointments/${selectedEvent.id}`,
         updatedData
       );
 

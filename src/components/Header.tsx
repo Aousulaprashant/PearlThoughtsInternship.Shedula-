@@ -44,7 +44,7 @@ const Header = () => {
     if (user?.role === "doctor") {
       router.push("/Docappointments");
     } else {
-      router.push("/home");
+      router.push("/");
     }
   };
   return (

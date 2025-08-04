@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import DoctorCard from "@/components/DoctorCard";
 import { useRouter } from "next/router";
 import { useUser } from "@/context/UseContext-login";
+import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 
-const API_URL = "http://localhost:5000/doctors";
+const API_URL = "/doctors";
 
 const DoctorsPage = () => {
   const [doctors, setDoctors] = useState<any[]>([]);
@@ -20,8 +22,8 @@ const DoctorsPage = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
+        const res = await axiosInstance(API_URL);
+        const data = res.data;
         setDoctors(data);
         setFilteredDoctors(data);
       } catch (err) {

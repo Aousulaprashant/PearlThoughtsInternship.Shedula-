@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useUser } from "@/context/UseContext-login";
 import SignupForm from "@/components/signUp/page";
 import ToggleSwitch from "@/components/ToggleSwich";
+import axiosInstance from "@/utiles/axiosInstance";
 
 const HomeHero = () => {
   const [isDoctor, setIsDoctor] = useState(false);
@@ -17,11 +18,6 @@ const HomeHero = () => {
   const [signUp, setSignUp] = useState(false);
   const { user, setUser } = useUser();
   const userTestCredentials = [
-    {
-      name: "Prashanth",
-      email: "prashanthaousula@gmail.com",
-      password: "11111",
-    },
     {
       name: "Pearl Thoghts",
       email: "p1@gmail.com",
@@ -58,12 +54,11 @@ const HomeHero = () => {
 
     try {
       const url = isDoctor
-        ? `http://localhost:5000/doctors?doctoremailOrphone=${emailOrPhone}&password=${password}`
-        : `http://localhost:5000/users?emailOrPhone=${emailOrPhone}&password=${password}`;
-      const res = await fetch(url);
+        ? `/doctors?doctoremailOrphone=${emailOrPhone}&password=${password}`
+        : `/users?emailOrPhone=${emailOrPhone}&password=${password}`;
+      const res = await axiosInstance.get(url);
 
-      console.log(res);
-      const data = await res.json();
+      const data = res.data;
 
       if (data.length === 1) {
         if (isDoctor) {
@@ -80,7 +75,7 @@ const HomeHero = () => {
             role: isDoctor ? "doctor" : "patient",
           };
           localStorage.setItem("user", JSON.stringify(userWithRole));
-          setUser(userWithRole); // <-- sets user in context
+          setUser(userWithRole);
           router.push("/doctors");
         }
       } else {
@@ -94,10 +89,10 @@ const HomeHero = () => {
 
   const handleGuestLogin = async () => {
     try {
-      const res = await fetch(
+      const res = await axiosInstance.get(
         `http://localhost:5000/users?emailOrPhone=p1@gmail.com&password=11111`
       );
-      const data = await res.json();
+      const data = res.data;
 
       if (data.length === 1) {
         localStorage.setItem("user", JSON.stringify(data[0]));

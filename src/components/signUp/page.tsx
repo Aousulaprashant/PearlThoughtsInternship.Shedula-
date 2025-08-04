@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@/context/UseContext-login";
 import { useRouter } from "next/navigation";
@@ -16,8 +16,6 @@ export default function SignupForm() {
   const { setUser } = useUser(); // from your context
   const router = useRouter();
 
-  const API_URL = "http://localhost:5000";
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -29,11 +27,11 @@ export default function SignupForm() {
 
     try {
       const checkUrl = isDoctor
-        ? `${API_URL}/doctors?doctoremailOrphone=${emailOrPhone}`
-        : `${API_URL}/users?emailOrPhone=${emailOrPhone}`;
+        ? `/doctors?doctoremailOrphone=${emailOrPhone}`
+        : `/users?emailOrPhone=${emailOrPhone}`;
 
       // 1. Check if already exists
-      const res = await axios.get(checkUrl);
+      const res = await axiosInstance.get(checkUrl);
       if (res.data.length > 0) {
         setError("Account with this email/phone already exists");
         return;
@@ -71,7 +69,7 @@ export default function SignupForm() {
         };
 
         // 2. Save new doctor
-        response = await axios.post(`${API_URL}/doctors`, newDoctor);
+        response = await axiosInstance.post(`/doctors`, newDoctor);
       } else {
         const newPatient = {
           ...newUser,
@@ -79,7 +77,7 @@ export default function SignupForm() {
         };
 
         // 2. Save new user
-        response = await axios.post(`${API_URL}/users`, newPatient);
+        response = await axiosInstance.post(`/users`, newPatient);
       }
 
       // 3. Store in context and localStorage

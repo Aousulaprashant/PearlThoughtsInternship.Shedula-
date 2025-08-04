@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 import { useUser } from "@/context/UseContext-login";
 import toast, { Toaster } from "react-hot-toast";
 import AppointmentCardDoctor from "@/components/Doc-AppointmentConform";
@@ -34,7 +34,7 @@ export default function DoctorAppointments() {
 
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/appointments");
+        const res = await axiosInstance.get("/appointments");
         const allAppointments: Appointment[] = res.data;
 
         const doctorAppointments = allAppointments.filter(
@@ -64,7 +64,7 @@ export default function DoctorAppointments() {
         cancelledBy: "doctor",
       };
 
-      await axios.put(`http://localhost:5000/appointments/${id}`, updated);
+      await axiosInstance.put(`/appointments/${id}`, updated);
 
       setAppointments((prev) =>
         prev.map((appt) => (appt.id === id ? updated : appt))
@@ -83,7 +83,7 @@ export default function DoctorAppointments() {
 
       const updated = { ...apptToUpdate, status: "confirmed" };
 
-      await axios.put(`http://localhost:5000/appointments/${id}`, updated);
+      await axiosInstance.put(`/appointments/${id}`, updated);
 
       setAppointments((prev) =>
         prev.map((appt) => (appt.id === id ? updated : appt))
@@ -110,10 +110,7 @@ export default function DoctorAppointments() {
         status: "rescheduled",
       };
 
-      await axios.put(
-        `http://localhost:5000/appointments/${selectedAppt.id}`,
-        updated
-      );
+      await axiosInstance.put(`/appointments/${selectedAppt.id}`, updated);
 
       setAppointments((prev) =>
         prev.map((appt) => (appt.id === selectedAppt.id ? updated : appt))
