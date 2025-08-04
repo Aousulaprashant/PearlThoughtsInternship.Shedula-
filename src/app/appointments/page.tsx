@@ -18,6 +18,7 @@ type Appointment = {
   fee: string;
   patientId: string;
   doctorImage: string;
+  status: string;
   specialization: string;
 };
 
@@ -31,7 +32,7 @@ export default function AppointmentsPage() {
   const [selectedAppt, setSelectedAppt] = useState<Appointment | null>(null);
 
   useEffect(() => {
-    if (!user?.id && !user?.name) return;
+    if (!user?.name) return;
 
     const fetchAppointments = async () => {
       try {
@@ -40,7 +41,7 @@ export default function AppointmentsPage() {
 
         const userAppointments = allAppointments.filter(
           (appt) =>
-            appt.patientId === user.id ||
+            // appt.patientId === user.id ||
             appt.patientName?.toLowerCase() === user.name?.toLowerCase()
         );
 

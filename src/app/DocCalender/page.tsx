@@ -336,19 +336,39 @@ export default function CalendarPage() {
           views={["month", "week", "day"]}
           style={{ height: "100%", minWidth: "900px" }}
           onRangeChange={handleRangeChange}
-          onEventDrop={(args: EventInteractionArgs<CalendarEvent>) => {
-            const { event, start, end, isAllDay } = args;
+          onEventDrop={async ({ event, start, end, isAllDay }) => {
+            try {
+              const newDate = moment(start).format("YYYY-MM-DD");
+              const newTime = moment(start).format("HH:mm");
 
-            const updatedEvent: CalendarEvent = {
-              ...event,
-              start: new Date(start), // ensure it's a Date
-              end: new Date(end),
-              allDay: isAllDay ?? false,
-            };
+              const updatedData = {
+                appointmentDate: newDate,
+                appointmentTime: newTime,
+                status: "rescheduled",
+              };
 
-            setAppointments((prev) =>
-              prev.map((ev) => (ev.id === event.id ? updatedEvent : ev))
-            );
+              await axiosInstance.patch(
+                `/appointments/${event.id}`,
+                updatedData
+              );
+
+              const updatedEvent = {
+                ...event,
+                start: new Date(start),
+                end: new Date(end),
+                allDay: isAllDay ?? false,
+                status: "rescheduled",
+              };
+
+              setAppointments((prev) =>
+                prev.map((e) => (e.id === event.id ? updatedEvent : e))
+              );
+
+              toast.success("Appointment rescheduled via drag");
+            } catch (err) {
+              console.error("Error during drag reschedule:", err);
+              toast.error("Failed to reschedule appointment");
+            }
           }}
           draggableAccessor={() => true} // <-- Make all events draggable
           popup

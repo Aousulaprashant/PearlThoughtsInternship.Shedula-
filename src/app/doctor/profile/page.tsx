@@ -82,7 +82,7 @@ const DoctorProfile = () => {
 
   const saveProfile = async () => {
     try {
-      await axiosInstance.put(`/doctors/${user.id}`, formData);
+      await axiosInstance.put(`/doctors/${user?.id}`, formData);
       toast.success("Profile updated!");
     } catch {
       toast.error("Update failed!");

@@ -178,7 +178,9 @@ const DoctorDetails = () => {
   const [selectedTime, setSelectedTime] = useState("");
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const receiptRef = useRef<HTMLDivElement>(null);
-  const [appointmentDetails, setAppointmentDetails] = useState(false);
+  const [appointmentDetails, setAppointmentDetails] = useState<any | false>(
+    false
+  );
   const [formData, setFormData] = useState({
     patientName: "",
     phoneNumber: "",

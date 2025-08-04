@@ -8,6 +8,8 @@ type UserType = {
   name: string;
   email: string;
   role: "patient" | "doctor";
+  image: string;
+  id: string;
 };
 
 type UserContextType = {
