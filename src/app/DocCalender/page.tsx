@@ -110,10 +110,10 @@ export default function CalendarPage() {
     }
   };
 
-  const handleViewChange = (newView: Views) => {
+  const handleViewChange = (newView: ViewType) => {
     setCurrentView(newView);
   };
-  const handleNavigate = (date: Date, view?: Views) => {
+  const handleNavigate = (date: Date, view?: ViewType) => {
     setCurrentDate(date); // <- update view date
     const resolvedView = view ?? currentView;
 
@@ -194,7 +194,7 @@ export default function CalendarPage() {
     fetchAppointments(currentRange);
   }, [fetchAppointments, currentRange, user?.id]);
 
-  const handleRangeChange = (range: any, view: Views) => {
+  const handleRangeChange = (range: any, view: ViewType) => {
     let start: Date, end: Date;
 
     if (view === "day") {
