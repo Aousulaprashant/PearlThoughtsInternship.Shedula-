@@ -141,7 +141,7 @@ export default function CalendarPage() {
 
         const doctorAppointments = allAppointments.filter((appt) => {
           const apptDate = new Date(appt.appointmentDate);
-          console.log(appt.doctorId, user?.id);
+
           return (
             appt.doctorName?.toLowerCase() === user?.name?.toLowerCase() &&
             apptDate >= range.start &&
