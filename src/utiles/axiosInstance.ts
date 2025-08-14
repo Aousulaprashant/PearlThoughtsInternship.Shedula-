@@ -2,8 +2,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://json-mock-api-2.onrender.com/", // Your centralized base URL
-  // You can also add default headers here if needed
+  // baseURL: "https://json-mock-api-2.onrender.com/", 
+  baseURL:"http://localhost:5000/",
+
   headers: {
     "Content-Type": "application/json",
   },

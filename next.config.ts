@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     config.output.chunkFilename = 'static/chunks/[name].[contenthash].js';
     return config;
   },
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 };
 
 export default nextConfig;

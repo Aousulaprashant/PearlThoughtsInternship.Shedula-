@@ -37,7 +37,7 @@ export default function RootLayout({
         />
         <UserProvider>
           <Header />
-          <main className="flex-1 container mx-auto p-4">{children}</main>
+          <main className="flex-1 container m-0">{children}</main>
           <Footer />
         </UserProvider>
       </body>

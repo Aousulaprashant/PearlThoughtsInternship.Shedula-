@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UseContext-login";
-import { FiLogOut, FiMoreVertical, FiUser } from "react-icons/fi";
+import { FiLogOut, FiMoreVertical } from "react-icons/fi";
+import { RiUserSettingsLine } from "react-icons/ri";
 
 const Header = () => {
   const pathname = usePathname();
@@ -49,7 +50,7 @@ const Header = () => {
     }
   };
   return (
-    <header className="bg-white shadow-sm relative">
+    <header className="bg-white shadow-2xl relative">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <div
           className="flex items-center space-x-1 cursor-pointer"
@@ -81,7 +82,7 @@ const Header = () => {
                     className="flex items-center px-4 py-2 hover:bg-gray-100 text-gray-700"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <FiUser className="mr-2" /> Profile
+                    <RiUserSettingsLine className="mr-2" /> Profile Settings
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -114,7 +115,7 @@ const Header = () => {
               )}
               aria-current={isActive("/appointments") ? "page" : undefined}
             >
-              Appointments
+              My Appointments
             </Link>
             <Link
               href="/doctors"
@@ -126,6 +127,17 @@ const Header = () => {
             >
               Doctors
             </Link>
+            {/* <Link
+              href="/myprescriptions"
+              className={linkClass(
+                "/appointments",
+                "text-gray-700 hover:text-blue-600"
+              )}
+              aria-current={isActive("/appointments") ? "page" : undefined}
+            >
+              My Prescriptions
+            </Link> */}
+
             <Link
               href="/services"
               className={linkClass(

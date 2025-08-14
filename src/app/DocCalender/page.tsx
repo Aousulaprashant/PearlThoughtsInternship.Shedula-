@@ -79,6 +79,7 @@ export default function CalendarPage() {
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
   const [currentView, setCurrentView] = useState<ViewType>("month");
+  const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
 
   const handleViewChange = (newView: View) => {
     setCurrentView(newView as ViewType);
@@ -257,6 +258,57 @@ export default function CalendarPage() {
       console.error(err);
     }
   };
+  const CustomEvent = ({ event }: { event: CalendarEvent }) => {
+    const isHovered = hoveredEventId === event.id;
+
+    return (
+      <div
+        onMouseEnter={() => setHoveredEventId(event.id)}
+        onMouseLeave={() => setHoveredEventId(null)}
+        className="relative"
+      >
+        <div>{event.title}</div>
+
+        {isHovered && (
+          <div className="absolute top-0 left-full ml-2 flex gap-1 z-50 bg-white p-1 rounded shadow-lg">
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white p-1 rounded"
+              title="Confirm"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedEvent(event);
+                handleStatusChange("confirmed");
+              }}
+            >
+              <CheckCircle size={16} />
+            </button>
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white p-1 rounded"
+              title="Reschedule"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedEvent(event);
+                handleStatusChange("rescheduled");
+              }}
+            >
+              <RefreshCcw size={16} />
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white p-1 rounded"
+              title="Cancel"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedEvent(event);
+                handleStatusChange("cancelled");
+              }}
+            >
+              <XCircle size={16} />
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     // same JSX you provided — already correct
@@ -276,6 +328,7 @@ export default function CalendarPage() {
           endAccessor="end"
           onNavigate={(date, view) => handleNavigate(date, view ?? currentView)}
           components={{
+            event: (props) => <CustomEvent event={props.event} />,
             toolbar: (props) => {
               const { label, onNavigate, onView, view } = props;
 

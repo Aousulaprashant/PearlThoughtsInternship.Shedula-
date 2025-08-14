@@ -12,6 +12,7 @@ import jsPDF from "jspdf";
 import { motion } from "framer-motion";
 import ReceiptPage from "@/components/Reciptpage";
 import axiosInstance from "@/utiles/axiosInstance";
+import { useRouter } from "next/navigation";
 
 type Review = {
   name: string;
@@ -34,7 +35,7 @@ type Doctor = {
   service?: string;
   availability?: {
     days?: string; // e.g. "Monday to Friday"
-    time?: string; // e.g. "10 AM to 3 PM" or "10:30 am to 3:00 pm"
+    workingHours?: string; // e.g. "10 AM to 3 PM" or "10:30 am to 3:00 pm"
   };
   image: string;
   location: string;
@@ -170,6 +171,7 @@ const DoctorDetails = () => {
   const [loading, setLoading] = useState(true);
 
   const { user, setUser } = useUser();
+  const router = useRouter();
 
   const [dateOffset, setDateOffset] = useState(0); // which page of the 4-day window
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
@@ -217,21 +219,34 @@ const DoctorDetails = () => {
   useEffect(() => {
     if (!doctorData) return;
 
-    // Allowed weekdays from availability.days (e.g., "Monday to Friday")
-    const allowedWeekdays = parseAllowedWeekdays(doctorData.availability?.days);
+    // --- 1️⃣ Convert workingDays to string for parsing ---
+    const allowedDaysStr = doctorData.workingDays
+      ?.map((day) => `${day.start} to ${day.end}`)
+      .join(", "); // e.g., "Tuesday to Saturday"
 
-    // Build a list of upcoming dates (e.g., next 28 valid days)
-    const today = new Date();
-    const upcoming = getNextNDatesFiltered(today, 28, allowedWeekdays);
+    // --- 2️⃣ Convert 24-hour workingHours to 12-hour string ---
+    const convert24to12 = (hourStr: string) => {
+      const [h, m] = hourStr.split(":").map(Number);
+      const period = h >= 12 ? "PM" : "AM";
+      const h12 = h % 12 === 0 ? 12 : h % 12;
+      return `${h12}:${m.toString().padStart(2, "0")} ${period}`;
+    };
+
+    const workingTimeStr = doctorData.workingHours
+      ?.map((h) => `${convert24to12(h.start)} to ${convert24to12(h.end)}`)
+      .join(", "); // e.g., "11:00 AM to 8:00 PM"
+
+    // --- 3️⃣ Parse allowed weekdays ---
+    const allowedWeekdays = parseAllowedWeekdays(allowedDaysStr);
+
+    // --- 4️⃣ Generate next 28 valid dates ---
+    const upcoming = getNextNDatesFiltered(new Date(), 28, allowedWeekdays);
     setDateList(upcoming);
     setDateOffset(0);
     setSelectedDateIndex(0);
 
-    // Generate time slots from availability.time
-    const slots = generateTimeSlotsFromWindow(
-      doctorData.availability?.time,
-      30
-    );
+    // --- 5️⃣ Generate time slots from working hours ---
+    const slots = generateTimeSlotsFromWindow(workingTimeStr, 30);
     setAvailableSlots(slots);
     setSelectedTime(slots[0] || "");
   }, [doctorData]);
@@ -244,7 +259,6 @@ const DoctorDetails = () => {
   const handleAppontmentBooking = async () => {
     const chosenDate = dateList[selectedDateIndex];
     if (
-      !formData.patientName ||
       !formData.phoneNumber ||
       !formData.gender ||
       !selectedTime ||
@@ -253,9 +267,10 @@ const DoctorDetails = () => {
       alert("Please fill all required fields.");
       return;
     }
-
+    const now = new Date();
     const payload = {
       ...formData,
+      patientName: user?.name,
       patientId: user?.id,
       doctorId: doctorData?.id,
       doctorName: doctorData?.name,
@@ -265,10 +280,14 @@ const DoctorDetails = () => {
       location: doctorData?.location,
       phone: doctorData?.phone,
       status: "booked",
+      iscompleted: false,
       rating: doctorData?.rating,
       reviews: doctorData?.reviews,
       appointmentDate: chosenDate.toISOString().split("T")[0],
       appointmentTime: selectedTime,
+      createdOnDate: now.toISOString().split("T")[0], // YYYY-MM-DD
+      createdOnTime: now.toTimeString().split(" ")[0], // HH:MM:SS
+      createdTimestamp: now.toISOString(), // Full ISO timestamp
     };
 
     try {
@@ -282,6 +301,8 @@ const DoctorDetails = () => {
         setTimeout(() => {
           downloadReceiptAsPDF(); // download receipt
         }, 800); // short delay ensures the DOM renders the hidden receipt
+
+        router.push("/appointments");
       } else {
         alert("Failed to save appointment. Try again.");
       }
@@ -298,17 +319,20 @@ const DoctorDetails = () => {
   if (!doctorData || (doctorData as any).error)
     return <div className="p-6">Doctor not found.</div>;
 
-  const specialtyText = doctorData.specialty || doctorData.specialization || "";
+  const specialtyText =
+    doctorData?.specialty || doctorData?.specialization || "";
 
   return (
     <div className="p-6">
       <div className="bg-blue-600 text-white p-6 rounded-xl flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold">{doctorData.name}</h2>
+          <h2 className="text-2xl font-bold">
+            {doctorData.name.toUpperCase()}
+          </h2>
           <p className="text-blue-200">{specialtyText}</p>
           <p className="mt-1 font-medium">{doctorData.title}</p>
           <div className="flex flex-wrap items-center gap-4 text-sm mt-4">
-            <span>📍 {doctorData.location}</span>
+            <span>📍 {doctorData.address}</span>
             <span>💵 Fee: {doctorData.fee}</span>
             <span>📞 {doctorData.phone}</span>
           </div>
@@ -320,7 +344,7 @@ const DoctorDetails = () => {
           </div>
         </div>
         <img
-          src={doctorData.image}
+          src={doctorData.profileImage}
           alt="Doctor"
           className="w-36 h-36 rounded-xl object-cover"
         />
@@ -333,7 +357,7 @@ const DoctorDetails = () => {
 
           <h3 className="font-bold text-lg mb-2">Services</h3>
           <ul className="list-disc list-inside text-gray-700">
-            {doctorData.services.map((service: string) => (
+            {doctorData?.services?.map((service: string) => (
               <li key={service}>{service}</li>
             ))}
           </ul>
@@ -342,7 +366,7 @@ const DoctorDetails = () => {
             Patient Reviews & Ratings
           </h3>
           <div>
-            {doctorData.reviewList.map((review: any, idx: number) => (
+            {doctorData?.reviewList?.map((review: any, idx: number) => (
               <div key={idx} className="bg-gray-100 p-4 rounded-xl mb-4">
                 <div className="flex justify-between text-sm">
                   <span className="font-semibold">{review.name}</span>
@@ -507,14 +531,14 @@ const DoctorDetails = () => {
           {/* Patient Info */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="space-y-3 mb-6">
-              <input
+              {/* <input
                 type="text"
                 name="patientName"
                 placeholder="Patient Name"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 value={formData.patientName}
                 onChange={handleChange}
-              />
+              /> */}
               <input
                 type="text"
                 name="phoneNumber"

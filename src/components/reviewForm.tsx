@@ -2,6 +2,8 @@
 
 import axiosInstance from "@/utiles/axiosInstance";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaStar } from "react-icons/fa";
 
 type Review = {
   name: string;
@@ -17,12 +19,7 @@ type DoctorResponse = {
 
 interface ReviewFormProps {
   doctorId: string | number;
-  /** e.g., "http://localhost:5000" (defaults to that if not provided) */
   apiBaseUrl?: string;
-  /**
-   * Called after a successful submit so the parent can update its local state.
-   * newCount is the incremented reviews count (parsed to number, if available).
-   */
   onAfterSubmit?: (newReviewList: Review[], newCount: number) => void;
 }
 
@@ -31,7 +28,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   apiBaseUrl = "http://localhost:5000",
   onAfterSubmit,
 }) => {
-  // --- Review form state ---
   const [reviewForm, setReviewForm] = useState({
     name: "",
     rating: 5,
@@ -41,7 +37,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const [reviewError, setReviewError] = useState<string | null>(null);
   const [reviewSuccess, setReviewSuccess] = useState<string | null>(null);
 
-  // --- Submit handler ---
   const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setReviewError(null);
@@ -54,8 +49,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
     setPostingReview(true);
     try {
-      // Build the new review
       const newReview: Review = {
+        doctorId,
         name: reviewForm.name.trim(),
         date: new Date().toLocaleDateString("en-US", {
           month: "long",
@@ -66,31 +61,15 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         comment: reviewForm.comment.trim(),
       };
 
-      // 1) Get the latest doctor (ensures we patch against current data)
-      const getRes = await axiosInstance.get<DoctorResponse>(
-        `/doctors/${doctorId}`
-      );
+      // POST directly to the reviews endpoint
+      const postRes = await axiosInstance.post(`/reviews`, newReview);
 
-      const latest = getRes.data;
+      if (postRes.status >= 200 && postRes.status < 300) {
+        onAfterSubmit?.(
+          (prevReviews: Review[]) => [...prevReviews, newReview],
+          (prevCount: number) => prevCount + 1
+        );
 
-      const updatedReviewList: Review[] = Array.isArray(latest.reviewList)
-        ? [...latest.reviewList, newReview]
-        : [newReview];
-
-      // 2) PATCH just the reviewList (json-server supports partial updates)
-      const patchRes = await axiosInstance.patch(`/doctors/${doctorId}`, {
-        reviewList: updatedReviewList,
-      });
-
-      if (patchRes.status >= 200 && patchRes.status < 300) {
-        // 3) Notify parent so it can update local doctor state (rating count, list, etc.)
-        const currentCount =
-          typeof latest.reviews === "number"
-            ? latest.reviews
-            : Number(latest.reviews || 0);
-        onAfterSubmit?.(updatedReviewList, currentCount + 1);
-
-        // Clear form
         setReviewForm({ name: "", rating: 5, comment: "" });
         setReviewSuccess("Thanks! Your review was submitted.");
       } else {
@@ -106,37 +85,59 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   };
 
   return (
-    <div className="bg-gray-100 p-4 rounded-xl mt-6">
-      <h4 className="font-bold mb-3">Add a Review</h4>
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white p-6 rounded-2xl shadow-md mt-8 border border-gray-100"
+    >
+      <h4 className="font-bold text-lg mb-4 text-gray-800">Add Your Review</h4>
 
-      <form onSubmit={handleSubmitReview}>
+      <form onSubmit={handleSubmitReview} className="space-y-4">
         <input
           type="text"
           placeholder="Your Name"
-          className="w-full p-2 mb-3 border rounded-lg"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={reviewForm.name}
           onChange={(e) =>
             setReviewForm((f) => ({ ...f, name: e.target.value }))
           }
         />
 
-        <select
-          className="w-full p-2 mb-3 border rounded-lg"
-          value={reviewForm.rating}
-          onChange={(e) =>
-            setReviewForm((f) => ({ ...f, rating: Number(e.target.value) }))
-          }
-        >
-          <option value={5}>★★★★★ (5)</option>
-          <option value={4}>★★★★☆ (4)</option>
-          <option value={3}>★★★☆☆ (3)</option>
-          <option value={2}>★★☆☆☆ (2)</option>
-          <option value={1}>★☆☆☆☆ (1)</option>
-        </select>
+        {/* Star Rating */}
+        <div className="flex items-center gap-1">
+          {Array.from({ length: 5 }, (_, i) => {
+            const starValue = i + 1;
+            return (
+              <motion.button
+                type="button"
+                key={i}
+                onClick={() =>
+                  setReviewForm((f) => ({ ...f, rating: starValue }))
+                }
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                className="focus:outline-none"
+              >
+                <FaStar
+                  size={28}
+                  className={
+                    starValue <= reviewForm.rating
+                      ? "text-yellow-400 drop-shadow-sm"
+                      : "text-gray-300"
+                  }
+                />
+              </motion.button>
+            );
+          })}
+          <span className="ml-2 text-sm text-gray-600">
+            {reviewForm.rating} / 5
+          </span>
+        </div>
 
         <textarea
           placeholder="Write your review..."
-          className="w-full p-2 mb-3 border rounded-lg"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={4}
           value={reviewForm.comment}
           onChange={(e) =>
@@ -145,21 +146,23 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         />
 
         {reviewError && (
-          <div className="text-red-600 text-sm mb-3">{reviewError}</div>
+          <div className="text-red-600 text-sm">{reviewError}</div>
         )}
         {reviewSuccess && (
-          <div className="text-green-600 text-sm mb-3">{reviewSuccess}</div>
+          <div className="text-green-600 text-sm">{reviewSuccess}</div>
         )}
 
-        <button
+        <motion.button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full bg-blue-500 text-white py-3 rounded-xl font-medium shadow hover:bg-blue-600 transition-colors"
           disabled={postingReview}
         >
           {postingReview ? "Submitting…" : "Submit Review"}
-        </button>
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

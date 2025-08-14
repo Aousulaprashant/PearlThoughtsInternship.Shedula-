@@ -12,75 +12,116 @@ export default function SignupForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
+  const [issuingAuthority, setIssuingAuthority] = useState("");
+  const [clinicName, setClinicName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [services, setServices] = useState<string[]>([]);
+  const [fee, setFee] = useState("");
+  const [website, setWebsite] = useState("");
+  const [workingDays, setWorkingDays] = useState([{ start: "", end: "" }]);
+  const [workingHours, setWorkingHours] = useState([{ start: "", end: "" }]);
+  const [departments, setDepartments] = useState<string[]>([]);
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [digitalSignature, setDigitalSignature] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [about, setAbout] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [specialty, setSpecialty] = useState("");
+  const [email, setEmail] = useState("");
+
   const [error, setError] = useState("");
-  const { setUser } = useUser(); // from your context
+  const { setUser } = useUser();
   const router = useRouter();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+    // Password match check
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
     try {
-      const checkUrl = isDoctor
-        ? `/doctors?doctoremailOrphone=${emailOrPhone}`
-        : `/users?emailOrPhone=${emailOrPhone}`;
+      // 1. Check if account already exists
 
-      // 1. Check if already exists
-      const res = await axiosInstance.get(checkUrl);
-      if (res.data.length > 0) {
-        setError("Account with this email/phone already exists");
-        return;
+      console.log(emailOrPhone); //giveing corrent what i mentioed in input "dr.prashanth@pearlThoughtcare.tsx"
+
+      if (isDoctor) {
+        const allDoctors = await axiosInstance.get("/doctors");
+        const exists = allDoctors.data.some(
+          (d: any) =>
+            d.doctoremailOrphone &&
+            d.doctoremailOrphone.toLowerCase() === emailOrPhone.toLowerCase()
+        );
+        if (exists) {
+          setError("Account with this email/phone already exists");
+          return;
+        }
+      } else {
+        const allUsers = await axiosInstance.get("/users");
+        const exists = allUsers.data.some(
+          (u: any) =>
+            u.emailOrPhone &&
+            u.emailOrPhone.toLowerCase() === emailOrPhone.toLowerCase()
+        );
+        if (exists) {
+          setError("Account with this email/phone already exists");
+          return;
+        }
       }
 
-      const newUser = {
+      const baseUser = {
         id: uuidv4(),
-        name: "New Doctor",
+        name,
         password,
         role: isDoctor ? "doctor" : "patient",
       };
 
       let response;
+
       if (isDoctor) {
         const newDoctor = {
-          ...newUser,
+          id: baseUser.id,
+          doctorId: baseUser.id,
+          name,
+          password,
+          role: "doctor",
+          licenseNumber,
+          issuingAuthority,
+          clinicName,
+          address,
+          phone,
+          services,
+          fee,
+          website,
           doctoremailOrphone: emailOrPhone,
-          specialization: "",
-          degree: "",
-          experience: "",
-          patients: "0",
-          rating: 0,
-          reviews: 0,
-          services: [],
-          about: "",
-          availability: {
-            days: "",
-            time: "",
-          },
-          location: "",
-          phone: "",
-          fee: "",
-          image: "",
-          reviewList: [],
+          email,
+          workingDays,
+          workingHours,
+          departments,
+          languages,
+          digitalSignature,
+          profileImage,
+          about,
+          qualification,
+          specialty,
         };
 
-        // 2. Save new doctor
         response = await axiosInstance.post(`/doctors`, newDoctor);
       } else {
         const newPatient = {
-          ...newUser,
+          ...baseUser,
           emailOrPhone,
         };
 
-        // 2. Save new user
         response = await axiosInstance.post(`/users`, newPatient);
       }
 
-      // 3. Store in context and localStorage
+      // 3. Save user in context & localStorage
       const userWithRole = {
         ...response.data,
         role: isDoctor ? "doctor" : "patient",
@@ -89,14 +130,12 @@ export default function SignupForm() {
       localStorage.setItem("user", JSON.stringify(userWithRole));
       setUser(userWithRole);
 
-      // 4. Redirect
+      // 4. Redirect to dashboard
       if (isDoctor) {
         router.push("/docDashBoard");
       } else {
         router.push("/doctors");
       }
-
-      setError("");
     } catch (err) {
       console.error("Signup error:", err);
       setError("Something went wrong. Please try again.");
@@ -109,14 +148,23 @@ export default function SignupForm() {
         {/* {isDoctor ? "Doctor Signup" : "User Signup"} */}
       </h2>
 
-      <h2 className="text-red-600">
-        {isDoctor ? "Sorry doctor, Doctor signup is not implemented yet!" : ""}
-      </h2>
-
       <form className="space-y-4" onSubmit={handleSignup}>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Email
+            Name
+          </label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your full name"
+            className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Email or Phone
           </label>
           <input
             type="text"

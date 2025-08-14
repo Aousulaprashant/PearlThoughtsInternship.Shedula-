@@ -17,7 +17,7 @@ export default function TabSwitcher({ toggle, signUp }: TabSwitcherProps) {
   };
 
   return (
-    <div className="w-full max-w-md px-4 absolute right-11 top-[20%]">
+    <div className="w-full max-w-md px-4 absolute right-11 top-[16%]">
       <div className="relative flex w-full justify-between rounded-full bg-gray-200 shadow-md">
         <motion.div
           className="absolute top-0 left-0 h-full w-1/2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 z-0"

@@ -58,6 +58,9 @@ const HomeHero = () => {
         : `/users?emailOrPhone=${emailOrPhone}&password=${password}`;
       const res = await axiosInstance.get(url);
 
+      console.log(url);
+      console.log(res);
+
       const data = res.data;
 
       if (data.length === 1) {
@@ -187,7 +190,9 @@ const HomeHero = () => {
                     className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-
+                <p className="text-red-600 text-xs mt-1">
+                  make Sure that no Spaces or blanks are there{" "}
+                </p>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
                     Password

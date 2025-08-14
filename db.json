@@ -17,181 +17,122 @@
       "name": "",
       "emailOrPhone": "a@a.com",
       "password": "11"
+    },
+    {
+      "id": "2d84b9f2-910b-4ceb-9774-1f474f115d62",
+      "name": "New Doctor",
+      "password": "111",
+      "role": "patient",
+      "emailOrPhone": "dr.prashanth@pealThoughtcare.com"
+    },
+    {
+      "id": "b5a701c1-80e3-4dbc-b6ee-e37e722e9fda",
+      "name": "New Doctor",
+      "password": "111",
+      "role": "patient",
+      "emailOrPhone": "dr.prashanth@gmail.com"
+    },
+    {
+      "id": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "name": "Prashanth FrontendDev",
+      "password": "111",
+      "role": "patient",
+      "emailOrPhone": "prashanth.frontend@pearlthoughtcare.com"
     }
   ],
   "doctors": [
     {
-      "id": "d1",
-      "doctoremailOrphone": "drkumar@gmail.com",
+      "id": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "name": "prashanth",
       "password": "111",
       "role": "doctor",
-      "name": "Dr. Kumar Das",
-      "specialization": "Ophthalmologist",
-      "degree": "MBBS, MS (Surgeon)",
-      "experience": "11",
-      "patients": "5000+",
-      "rating": 4.8,
-      "reviews": 4942,
-      "services": [
-        "Cataract Surgery",
-        "Glaucoma Treatment",
-        "Vision Testing"
+      "licenseNumber": "",
+      "issuingAuthority": "",
+      "clinicName": "Pearal THought Care",
+      "address": "hyderabad",
+      "phone": "",
+      "services": [],
+      "fee": "1800 INR",
+      "website": "",
+      "doctoremailOrphone": "intern@pearlthoughs.com",
+      "email": "",
+      "workingDays": [
+        {
+          "start": "Friday",
+          "end": "Sunday"
+        }
       ],
-      "about": "Experienced eye specialist...",
-      "availability": {
-        "days": "Mon-Fri",
-        "time": "10AM - 5PM"
-      },
-      "location": "Vision Care Center, Mumbai",
-      "phone": "0987654321",
-      "fee": "400 INR",
-      "image": "/Imgs/DoctorsImg/dr2.jpg",
+      "workingHours": [
+        {
+          "start": "16:00",
+          "end": "17:00"
+        }
+      ],
+      "departments": [],
+      "languages": [],
+      "digitalSignature": "https://res.cloudinary.com/datgoov18/image/upload/v1755077005/doctor_profiles/wfw4hvetgmclbwmflbmc.png",
+      "profileImage": "https://res.cloudinary.com/datgoov18/image/upload/v1755102889/doctor_profiles/hi4we1mxckprxcjhhvcp.png",
+      "about": "with 8 years of experience in Gastroenterologist",
+      "qualification": "MBBS",
+      "specialty": "Gastroenterologist",
       "reviewList": [
         {
-          "userId": "u1",
-          "name": "Ravi S.",
-          "date": "2025-01-10",
+          "name": "testing",
+          "date": "August 14, 2025",
           "rating": 5,
-          "comment": "Professional and friendly."
-        },
-        {
-          "name": "a",
-          "date": "July 31, 2025",
-          "rating": 5,
-          "comment": "a"
+          "comment": "testing"
         }
       ]
     },
     {
-      "id": "d2",
-      "doctoremailOrphone": "drshikha@gmail.com",
+      "id": "a53b886d-b46a-4ddf-a25b-c50e0f41b904",
+      "doctorId": "a53b886d-b46a-4ddf-a25b-c50e0f41b904",
+      "name": "Pushpa Raj",
       "password": "111",
-      "name": "Dr. Shikha",
-      "specialization": "Dermatologist",
-      "degree": "MBBS, MD",
-      "experience": 12,
-      "patients": "3200+",
-      "rating": 4.7,
-      "reviews": 2876,
-      "services": [
-        "Acne Treatment",
-        "Laser Hair Removal",
-        "Skin Allergy Testing"
-      ],
-      "about": "Skin specialist for acne...",
-      "availability": {
-        "days": "Tue-Sat",
-        "time": "9AM - 3PM"
-      },
-      "location": "Radiant Skin Clinic, Delhi",
-      "phone": "0912345678",
-      "fee": "500 INR",
-      "image": "/Imgs/DoctorsImg/dr1.jpg",
-      "reviewList": [
+      "role": "doctor",
+      "licenseNumber": "",
+      "issuingAuthority": "",
+      "clinicName": "",
+      "address": "",
+      "phone": "",
+      "services": [],
+      "fee": "",
+      "website": "",
+      "doctoremailOrphone": "pushparaj@gmail.com",
+      "email": "",
+      "workingDays": [
         {
-          "userId": "u1",
-          "name": "Neha M.",
-          "date": "2025-02-05",
-          "rating": 4,
-          "comment": "Helpful treatment."
-        },
-        {
-          "name": "pa",
-          "date": "August 1, 2025",
-          "rating": 5,
-          "comment": "as"
+          "start": "Wednesday",
+          "end": "Sunday"
         }
-      ]
-    },
-    {
-      "id": "3",
-      "doctoremailOrphone": "drrajeev@gmail.com",
-      "password": "111",
-      "name": "Dr. Rajeev sing Kapoor ",
-      "specialization": "Orthopedic Surgeon",
-      "degree": "MBBS, MS (Ortho)",
-      "about": "Specialist in knee and hip replacements with 20+ years of experience.",
-      "patients": "7000+",
-      "experience": "22",
-      "rating": "4.9",
-      "reviews": "6100",
-      "service": "OrthoCare",
-      "availability": {
-        "days": "Monday, Wednesday, Friday",
-        "time": "10 AM to 9 PM"
-      },
-      "image": "/Imgs/DoctorsImg/dr3.jpg",
-      "location": "Joint Relief Center, Bangalore",
-      "phone": "896543210",
-      "fee": "600 INR",
-      "title": "Joint Replacement Expert",
-      "services": [
-        "Knee Replacement",
-        "Fracture Treatment",
-        "Sports Injuries"
       ],
-      "reviewList": [
+      "workingHours": [
         {
-          "name": "Amit T.",
-          "date": "March 3, 2024",
-          "rating": 5,
-          "comment": "Best ortho I’ve consulted. Clear advice and treatment."
-        },
-        {
-          "name": "nice",
-          "date": "August 1, 2025",
-          "rating": 4,
-          "comment": "aa"
+          "start": "12:57",
+          "end": "09:02"
         }
-      ]
-    },
-    {
-      "id": "4",
-      "doctoremailOrphone": "drfarah@gmail.com",
-      "password": "111",
-      "name": "Dr. Farah Siddiqui",
-      "specialization": "Pediatrician",
-      "degree": "MBBS, DCH",
-      "about": "Pediatric consultant for children’s health, growth, and vaccinations.",
-      "patients": "4500+",
-      "experience": "10",
-      "rating": "4.6",
-      "reviews": "3987",
-      "service": "ChildWell",
-      "availability": {
-        "days": "Monday,Thursday,Sunday",
-        "time": "8 AM to 2 PM"
-      },
-      "image": "/Imgs/DoctorsImg/dr1.jpg",
-      "location": "Happy Kids Clinic, Lucknow",
-      "phone": "0888123456",
-      "fee": "350 INR",
-      "title": "Child Health Specialist",
-      "services": [
-        "Vaccinations",
-        "Nutrition Advice",
-        "Growth Monitoring"
       ],
-      "reviewList": [
-        {
-          "name": "Priya B.",
-          "date": "April 20, 2024",
-          "rating": 4.5,
-          "comment": "Takes great care of kids. Answers every concern."
-        }
-      ]
+      "departments": [],
+      "languages": [],
+      "digitalSignature": "",
+      "profileImage": "https://res.cloudinary.com/datgoov18/image/upload/v1755145695/doctor_profiles/hmv8xm0rlmljreijjwax.png",
+      "about": "",
+      "qualification": "",
+      "specialty": ""
     }
   ],
   "appointments": [
     {
-      "id": "adf3",
-      "patientName": "Pearl Prashanth",
-      "phoneNumber": "11",
+      "id": "fdaa",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "+91 919210240",
       "gender": "Male",
       "paymentMethod": "Cash",
       "cardNumber": "",
       "expiry": "",
       "cvv": "",
+      "patientId": "u2",
       "doctorId": "4",
       "doctorName": "Dr. Farah Siddiqui",
       "doctorImage": "/Imgs/DoctorsImg/dr1.jpg",
@@ -199,178 +140,283 @@
       "fee": "350 INR",
       "location": "Happy Kids Clinic, Lucknow",
       "phone": "0888123456",
+      "status": "critical",
+      "rating": "4.6",
+      "reviews": "3987",
+      "appointmentDate": "2025-08-13",
+      "appointmentTime": "09:00",
+      "createdOnDate": "2025-08-12",
+      "createdOnTime": "12:23:52",
+      "createdTimestamp": "2025-08-12T06:53:52.243Z",
+      "isCompleted": true,
+      "HeathStatus": "Critical",
+      "primaryIssue": "Asthma"
+    },
+    {
+      "id": "8b1c",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "921349132",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3",
+      "doctorName": "Dr. Rajeev sing Kapoor ",
+      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
+      "specialization": "Orthopedic Surgeon",
+      "fee": "600 INR",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "896543210",
+      "status": "booked",
+      "rating": "4.9",
+      "reviews": "6100",
+      "appointmentDate": "2025-08-12",
+      "appointmentTime": "11:30 am",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "10:26:58",
+      "createdTimestamp": "2025-08-13T04:56:58.174Z",
+      "isCompleted": true
+    },
+    {
+      "id": "44b6",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "12312921",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3",
+      "doctorName": "Dr. Rajeev sing Kapoor ",
+      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
+      "specialization": "Orthopedic Surgeon",
+      "fee": "600 INR",
+      "location": "Joint Relief Center, Bangalore",
+      "phone": "896543210",
+      "status": "booked",
+      "rating": "4.9",
+      "reviews": "6100",
+      "appointmentDate": "2025-08-12",
+      "appointmentTime": "1:00 pm",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "10:27:40",
+      "createdTimestamp": "2025-08-13T04:57:40.675Z"
+    },
+    {
+      "id": "7869",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "9243029",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "fae85f58-78e9-428e-9cad-ca5e6b4d1723",
+      "doctorName": "Prashanth",
+      "specialization": "Dermatologist",
+      "phone": "991278781",
+      "status": "rescheduled",
+      "appointmentDate": "2025-08-24",
+      "appointmentTime": "12:30",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "14:26:32",
+      "createdTimestamp": "2025-08-13T08:56:32.631Z",
+      "isCompleted": true
+    },
+    {
+      "id": "da21",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "12345",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "",
+      "fee": "",
+      "phone": "",
+      "status": "mild",
+      "appointmentDate": "2025-10-01",
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "14:56:47",
+      "createdTimestamp": "2025-08-13T09:26:47.171Z",
+      "isCompleted": true,
+      "primaryIssue": "Chronic kidney disease",
+      "HeathStatus": "Mild"
+    },
+    {
+      "id": "3cd5",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "+91-9572487761",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "u2",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "",
+      "fee": "",
+      "phone": "",
+      "status": "rescheduled",
+      "appointmentDate": "2025-08-14",
+      "appointmentTime": "16:30",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "16:50:29",
+      "createdTimestamp": "2025-08-13T11:20:29.878Z",
+      "isCompleted": true,
+      "HeathStatus": "Critical"
+    },
+    {
+      "id": "1ba1",
+      "patientName": "Prashanth FrontendDev",
+      "phoneNumber": "957388761",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "",
+      "phone": "",
+      "status": "booked",
+      "iscompleted": false,
+      "appointmentDate": "2025-08-14",
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-13",
+      "createdOnTime": "22:27:19",
+      "createdTimestamp": "2025-08-13T16:57:19.910Z",
+      "HeathStatus": "Stable"
+    },
+    {
+      "id": "ce2b",
+      "patientName": "Prashanth FrontendDev",
+      "phoneNumber": "957957761",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "1800 INR",
+      "phone": "",
       "status": "confirmed",
-      "cancelledBy": null,
-      "rating": "4.6",
-      "reviews": "3987",
-      "appointmentDate": "2025-07-30",
-      "appointmentTime": "11:00 am"
+      "iscompleted": false,
+      "appointmentDate": "2025-08-14",
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-14",
+      "createdOnTime": "08:08:18",
+      "createdTimestamp": "2025-08-14T02:38:18.329Z"
     },
     {
-      "id": "2a6b",
-      "patientName": "pa",
+      "id": "3c2b",
+      "patientName": "Prashanth FrontendDev",
       "phoneNumber": "11",
       "gender": "Male",
       "paymentMethod": "Cash",
       "cardNumber": "",
       "expiry": "",
       "cvv": "",
-      "doctorId": "1",
-      "doctorName": "Dr. Kumar Das",
-      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
-      "specialization": "Ophthalmologist",
-      "fee": "400 INR",
-      "location": "Vision Care Center, Mumbai",
-      "phone": "0987654321",
-      "status": "rescheduled",
-      "cancelledBy": null,
-      "rating": "4.8",
-      "reviews": "4942",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "1800 INR",
+      "phone": "",
+      "status": "booked",
+      "iscompleted": true,
       "appointmentDate": "2025-08-21",
-      "appointmentTime": "12:00"
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-14",
+      "createdOnTime": "08:09:06",
+      "createdTimestamp": "2025-08-14T02:39:06.867Z",
+      "isCompleted": true,
+      "HeathStatus": "Mild"
     },
     {
-      "id": "95ee",
-      "patientName": "q",
-      "phoneNumber": "1",
-      "gender": "Female",
-      "paymentMethod": "Cash",
-      "cardNumber": "q",
-      "expiry": "s",
-      "cvv": "3",
-      "doctorId": "1",
-      "doctorName": "Dr. Kumar Das",
-      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
-      "specialization": "Ophthalmologist",
-      "fee": "400 INR",
-      "location": "Vision Care Center, Mumbai",
-      "phone": "0987654321",
-      "status": "cancelled",
-      "cancelledBy": "doctor",
-      "rating": "4.8",
-      "reviews": "4942",
-      "appointmentDate": "2025-07-30",
-      "appointmentTime": "1:00 pm"
-    },
-    {
-      "id": "06ef",
-      "patientName": "Pearl Prashanth",
-      "phoneNumber": "11",
+      "id": "8860",
+      "patientName": "Prashanth FrontendDev",
+      "phoneNumber": "57247761",
       "gender": "Male",
       "paymentMethod": "Cash",
       "cardNumber": "",
       "expiry": "",
       "cvv": "",
-      "doctorId": "1",
-      "doctorName": "Dr. Kumar Das",
-      "doctorImage": "/Imgs/DoctorsImg/dr2.jpg",
-      "specialization": "Ophthalmologist",
-      "fee": "400 INR",
-      "location": "Vision Care Center, Mumbai",
-      "phone": "0987654321",
-      "status": "rescheduled",
-      "cancelledBy": null,
-      "rating": "4.8",
-      "reviews": "4942",
-      "appointmentDate": "2025-07-30",
-      "appointmentTime": "3:30 pm"
-    },
-    {
-      "id": "3667",
-      "patientName": "11",
-      "phoneNumber": "11",
-      "gender": "Male",
-      "paymentMethod": "Cash",
-      "cardNumber": "",
-      "expiry": "",
-      "cvv": "",
-      "patientId": "u2",
-      "doctorId": "3",
-      "doctorName": "Dr. Rajeev Kapoor",
-      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
-      "specialization": "Orthopedic Surgeon",
-      "fee": "600 INR",
-      "location": "Joint Relief Center, Bangalore",
-      "phone": "0896543210",
-      "status": "rescheduled",
-      "rating": "4.9",
-      "reviews": "6100",
-      "appointmentDate": "2025-08-22",
-      "appointmentTime": "12:38",
-      "title": "Patient: 11 (rescheduled)",
-      "start": "2025-08-08T07:08:00.000Z",
-      "end": "2025-08-08T07:38:00.000Z",
-      "allDay": false,
-      "cancelledBy": "doctor"
-    },
-    {
-      "id": "9a4d",
-      "patientName": "Pearl Prashanth",
-      "phoneNumber": "66",
-      "gender": "Male",
-      "paymentMethod": "Cash",
-      "cardNumber": "",
-      "expiry": "",
-      "cvv": "",
-      "patientId": "u2",
-      "doctorId": "4",
-      "doctorName": "Dr. Farah Siddiqui",
-      "doctorImage": "/Imgs/DoctorsImg/dr1.jpg",
-      "specialization": "Pediatrician",
-      "fee": "350 INR",
-      "location": "Happy Kids Clinic, Lucknow",
-      "phone": "0888123456",
-      "status": "rescheduled",
-      "rating": "4.6",
-      "reviews": "3987",
-      "appointmentDate": "2025-08-04",
-      "appointmentTime": "09:00"
-    },
-    {
-      "id": "9996",
-      "patientName": "A Prashanth",
-      "phoneNumber": "11",
-      "gender": "Male",
-      "paymentMethod": "Cash",
-      "cardNumber": "",
-      "expiry": "",
-      "cvv": "",
-      "patientId": "u2",
-      "doctorId": "3",
-      "doctorName": "Dr. Rajeev sing Kapoor ",
-      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
-      "specialization": "Orthopedic Surgeon",
-      "fee": "600 INR",
-      "location": "Joint Relief Center, Bangalore",
-      "phone": "896543210",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "1800 INR",
+      "phone": "",
       "status": "booked",
-      "rating": "4.9",
-      "reviews": "6100",
-      "appointmentDate": "2025-08-07",
-      "appointmentTime": "6:30 pm"
+      "iscompleted": true,
+      "appointmentDate": "2025-08-15",
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-14",
+      "createdOnTime": "08:19:31",
+      "createdTimestamp": "2025-08-14T02:49:31.728Z",
+      "HeathStatus": "Stable"
     },
     {
-      "id": "c556",
-      "patientName": "prashantn",
-      "phoneNumber": "1122",
-      "gender": "Female",
+      "id": "2f58",
+      "patientName": "Prashanth FrontendDev",
+      "phoneNumber": "98183457761",
+      "gender": "Male",
+      "paymentMethod": "Cash",
+      "cardNumber": "",
+      "expiry": "",
+      "cvv": "",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "1800 INR",
+      "phone": "",
+      "status": "confirmed",
+      "iscompleted": false,
+      "appointmentDate": "2025-08-21",
+      "appointmentTime": "4:30 pm",
+      "createdOnDate": "2025-08-14",
+      "createdOnTime": "08:35:13",
+      "createdTimestamp": "2025-08-14T03:05:13.950Z"
+    },
+    {
+      "id": "934e",
+      "patientName": "Pearl Thoghts",
+      "phoneNumber": "9573457761",
+      "gender": "Male",
       "paymentMethod": "Cash",
       "cardNumber": "",
       "expiry": "",
       "cvv": "",
       "patientId": "u2",
-      "doctorId": "3",
-      "doctorName": "Dr. Rajeev sing Kapoor ",
-      "doctorImage": "/Imgs/DoctorsImg/dr3.jpg",
-      "specialization": "Orthopedic Surgeon",
-      "fee": "600 INR",
-      "location": "Joint Relief Center, Bangalore",
-      "phone": "896543210",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorName": "prashanth",
+      "specialization": "Gastroenterologist",
+      "fee": "1800 INR",
+      "phone": "",
       "status": "booked",
-      "rating": "4.9",
-      "reviews": "6100",
-      "appointmentDate": "2025-08-31",
-      "appointmentTime": "6:00 pm"
+      "iscompleted": false,
+      "appointmentDate": "2025-08-15",
+      "appointmentTime": "4:00 pm",
+      "createdOnDate": "2025-08-14",
+      "createdOnTime": "09:59:35",
+      "createdTimestamp": "2025-08-14T04:29:35.609Z"
     }
   ],
   "specializations": [
@@ -397,6 +443,566 @@
     {
       "id": "s6",
       "name": "Gastroenterologist"
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "1",
+      "appointmentId": "a001",
+      "medicines": [
+        {
+          "medicine": "Paracetamol",
+          "dosage": "2 times a day",
+          "duration": "5 days",
+          "notes": "Take after meals"
+        },
+        {
+          "medicine": "Ibuprofen",
+          "dosage": "1 tablet",
+          "duration": "3 days",
+          "notes": "After meals"
+        }
+      ],
+      "date": "2025-08-07",
+      "patientId": "p001"
+    },
+    {
+      "id": "5b72",
+      "appointmentId": "9996",
+      "patientId": "u2",
+      "patientName": "John Doe",
+      "patientAge": 42,
+      "patientGender": "Male",
+      "date": "2025-08-11",
+      "doctorId": "d1",
+      "doctorName": "Dr. Emily Carter",
+      "doctorSpecialization": "Cardiologist",
+      "clinicName": "City Heart Clinic",
+      "diagnosis": "Hypertension",
+      "medicines": [
+        {
+          "medicine": "Amlodipine",
+          "dosage": "5mg",
+          "duration": "3 weeks",
+          "route": "oral",
+          "frequency": "Once daily",
+          "startDate": "2025-08-06",
+          "endDate": "2025-08-28",
+          "notes": "Take in the morning with water"
+        },
+        {
+          "medicine": "Aspirin",
+          "dosage": "75mg",
+          "duration": "3 weeks",
+          "route": "oral",
+          "frequency": "Once daily",
+          "startDate": "2025-08-06",
+          "endDate": "2025-08-28",
+          "notes": "Take after breakfast"
+        }
+      ],
+      "followUpDate": "2025-09-01",
+      "additionalNotes": "Monitor blood pressure daily and report if above 140/90.",
+      "createdAt": "2025-08-11T10:30:00Z",
+      "updatedAt": "2025-08-11T10:45:00Z"
+    },
+    {
+      "id": "3862",
+      "appointmentId": "adf3",
+      "date": "2025-08-11",
+      "medicines": [
+        {
+          "medicine": "Acyclovir Suspension2",
+          "dosage": "2 times/day",
+          "duration": "3 weeks",
+          "route": "oral",
+          "frequency": "2",
+          "startDate": "2025-08-14",
+          "endDate": "2025-08-29",
+          "notes": "start start"
+        },
+        {
+          "medicine": "new mediceine 2",
+          "dosage": "2 times/day",
+          "duration": "3 week",
+          "route": "oral",
+          "frequency": "a",
+          "startDate": "2025-08-06",
+          "endDate": "2025-08-28",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "6d69",
+      "appointmentId": "1db7",
+      "patientId": "u2",
+      "date": "2025-08-12",
+      "medicines": [
+        {
+          "medicine": "teams medicine",
+          "dosage": "2 times/day",
+          "duration": "3 week",
+          "route": "oral",
+          "frequency": "",
+          "startDate": "2025-08-12",
+          "endDate": "2025-08-28",
+          "notes": "be reguler , drink hot water"
+        },
+        {
+          "notes": "",
+          "medicine": "new mediceine 2",
+          "dosage": "2 times/day",
+          "duration": "3 weeks",
+          "route": "",
+          "frequency": "",
+          "startDate": "",
+          "endDate": ""
+        }
+      ]
+    },
+    {
+      "id": "39bb",
+      "appointmentId": "fdaa",
+      "patientId": "u2",
+      "patientName": "Pearl Thoghts",
+      "patientAge": "",
+      "patientGender": "Male",
+      "patientContact": "+91 919210240",
+      "patientAddress": "",
+      "patientAllergies": "",
+      "patientWeight": "",
+      "patientHeight": "",
+      "doctorName": "Dr. Farah Siddiqui",
+      "doctorQualification": "MBBS",
+      "doctorLicenseNo": "LIC-0001",
+      "doctorSpecialization": "Pediatrician",
+      "doctorContact": "0888123456",
+      "clinicName": "Happy Kids Clinic, Lucknow",
+      "clinicAddress": "",
+      "date": "2025-08-12",
+      "diagnosis": "",
+      "followUpDate": "",
+      "additionalNotes": "",
+      "advice": "",
+      "vitals": {},
+      "medicines": [
+        {
+          "notes": "be reguler , do exsersice ,drink more water",
+          "medicine": "dolo",
+          "dosage": "5gm",
+          "duration": "2weeks",
+          "route": "oral",
+          "frequency": "2times/day",
+          "startDate": "2025-08-12",
+          "endDate": "2025-08-30",
+          "specialInstructions": "take after luch",
+          "refills": "1"
+        },
+        {
+          "medicine": "dolo2",
+          "dosage": "5gm",
+          "duration": "2weeks",
+          "route": "oral",
+          "frequency": "2times/day",
+          "startDate": "2025-07-31",
+          "endDate": "2025-08-28",
+          "notes": ""
+        }
+      ],
+      "uniquePrescriptionId": "RX-1754984409764",
+      "qrCode": ""
+    },
+    {
+      "id": "8b29",
+      "appointmentId": "da21",
+      "patientId": "u2",
+      "patientName": "Pearl Thoghts",
+      "patientAge": "",
+      "patientGender": "Male",
+      "patientContact": "12345",
+      "patientAddress": "",
+      "patientAllergies": "",
+      "patientWeight": "",
+      "patientHeight": "",
+      "doctorName": "prashanth",
+      "doctorQualification": "MBBS",
+      "doctorLicenseNo": "LIC-0001",
+      "doctorSpecialization": "",
+      "doctorContact": "",
+      "clinicAddress": "",
+      "date": "2025-08-13",
+      "diagnosis": "",
+      "followUpDate": "",
+      "additionalNotes": "",
+      "advice": "",
+      "vitals": {},
+      "medicines": [
+        {
+          "notes": "drink more water , eat fruits as u have vitem D defecence",
+          "medicine": "testing Acyclovir Suspension",
+          "dosage": "2 times/day",
+          "duration": "3 weeks",
+          "route": "oral",
+          "frequency": "2",
+          "startDate": "2025-08-12",
+          "endDate": "2025-08-21",
+          "specialInstructions": "take moring and eving",
+          "refills": "4"
+        }
+      ],
+      "uniquePrescriptionId": "RX-1755077374772",
+      "qrCode": ""
+    },
+    {
+      "id": "4b30",
+      "appointmentId": "3cd5",
+      "patientId": "u2",
+      "patientName": "Pearl Thoghts",
+      "patientAge": "",
+      "patientGender": "Male",
+      "patientContact": "+91-9572487761",
+      "patientAddress": "",
+      "patientAllergies": "",
+      "patientWeight": "",
+      "patientHeight": "",
+      "doctorName": "prashanth",
+      "doctorQualification": "MBBS",
+      "doctorLicenseNo": "LIC-0001",
+      "doctorSpecialization": "",
+      "doctorContact": "",
+      "clinicAddress": "",
+      "date": "2025-08-13",
+      "diagnosis": "",
+      "followUpDate": "",
+      "additionalNotes": "",
+      "advice": "",
+      "vitals": {},
+      "medicines": [
+        {
+          "notes": "drink more water",
+          "medicine": "medicel1",
+          "dosage": "1",
+          "duration": "2 weeks",
+          "route": "Oral",
+          "frequency": "2",
+          "startDate": "2025-08-18",
+          "endDate": "2025-08-21",
+          "specialInstructions": "take rest until you feel better",
+          "refills": "4"
+        }
+      ],
+      "uniquePrescriptionId": "RX-1755087588722",
+      "qrCode": ""
+    },
+    {
+      "id": "580e",
+      "appointmentId": "1ba1",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "patientName": "Prashanth FrontendDev",
+      "patientAge": "",
+      "patientGender": "Male",
+      "patientContact": "957388761",
+      "patientAddress": "",
+      "patientAllergies": "",
+      "patientWeight": "",
+      "patientHeight": "",
+      "doctorName": "prashanth",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "doctorQualification": "MBBS",
+      "doctorLicenseNo": "LIC-0001",
+      "doctorSpecialization": "Gastroenterologist",
+      "doctorContact": "",
+      "clinicAddress": "",
+      "date": "2025-08-13",
+      "diagnosis": "",
+      "followUpDate": "",
+      "additionalNotes": "",
+      "advice": "",
+      "vitals": {},
+      "medicines": [
+        {
+          "notes": "take rest , drink 5lt water per day",
+          "medicine": "medicel1",
+          "dosage": "1",
+          "duration": "2 weeks",
+          "route": "Oral",
+          "frequency": "1",
+          "startDate": "2025-07-29",
+          "endDate": "2025-08-29",
+          "specialInstructions": "take rest until you feel better",
+          "refills": "4"
+        }
+      ],
+      "uniquePrescriptionId": "RX-1755104306635",
+      "qrCode": ""
+    },
+    {
+      "id": "76f1",
+      "appointmentId": "3c2b",
+      "patientId": "e562dea5-a7e4-4bc4-91fa-3d88c3a3f6be",
+      "patientName": "Prashanth FrontendDev",
+      "patientAge": "",
+      "patientGender": "Male",
+      "patientContact": "11",
+      "patientAddress": "",
+      "patientAllergies": "",
+      "patientWeight": "",
+      "patientHeight": "",
+      "doctorName": "prashanth",
+      "doctorQualification": "MBBS",
+      "doctorLicenseNo": "LIC-0001",
+      "doctorSpecialization": "Gastroenterologist",
+      "doctorContact": "",
+      "clinicAddress": "",
+      "date": "2025-08-14",
+      "diagnosis": "",
+      "followUpDate": "",
+      "additionalNotes": "",
+      "advice": "",
+      "vitals": {},
+      "medicines": [
+        {
+          "notes": "",
+          "medicine": "medicine boronine",
+          "dosage": "2",
+          "duration": "2 weeks",
+          "route": "3",
+          "frequency": "2",
+          "startDate": "2025-08-21",
+          "endDate": "2025-08-22",
+          "specialInstructions": "a",
+          "refills": ""
+        }
+      ],
+      "uniquePrescriptionId": "RX-1755147824155",
+      "qrCode": ""
+    }
+  ],
+  "PrimaryIssue": [
+    {
+      "category": "General & Preventive",
+      "issues": [
+        "Routine check-up",
+        "Vaccination / immunization",
+        "Follow-up appointment",
+        "Annual health exam",
+        "Pre-employment medical exam",
+        "Travel health consultation"
+      ],
+      "id": "051b"
+    },
+    {
+      "category": "Chronic Conditions",
+      "issues": [
+        "Diabetes",
+        "Hypertension (high blood pressure)",
+        "Asthma",
+        "Chronic kidney disease",
+        "Dialysis session",
+        "Heart disease",
+        "Thyroid disorder",
+        "Chronic pain management"
+      ],
+      "id": "e4a2"
+    },
+    {
+      "category": "Acute Symptoms",
+      "issues": [
+        "Fever",
+        "Headache / migraine",
+        "Cough",
+        "Sore throat",
+        "Shortness of breath",
+        "Chest pain",
+        "Abdominal pain",
+        "Dizziness / vertigo",
+        "Fatigue / weakness"
+      ],
+      "id": "dd62"
+    },
+    {
+      "category": "Injuries",
+      "issues": [
+        "Fracture",
+        "Sprain / strain",
+        "Wound / laceration",
+        "Burn",
+        "Head injury",
+        "Back injury"
+      ],
+      "id": "d358"
+    },
+    {
+      "category": "Musculoskeletal & Joint Issues",
+      "issues": [
+        "Arthritis",
+        "Back pain",
+        "Neck pain",
+        "Knee pain",
+        "Shoulder pain",
+        "Joint swelling"
+      ],
+      "id": "e0e2"
+    },
+    {
+      "category": "Skin & Hair",
+      "issues": [
+        "Rash",
+        "Acne",
+        "Eczema",
+        "Psoriasis",
+        "Hair loss",
+        "Skin infection"
+      ],
+      "id": "6db0"
+    },
+    {
+      "category": "Ear, Nose, Throat",
+      "issues": [
+        "Ear pain",
+        "Hearing loss",
+        "Sinus infection",
+        "Allergic rhinitis",
+        "Nosebleeds",
+        "Sore throat"
+      ],
+      "id": "9895"
+    },
+    {
+      "category": "Eye",
+      "issues": [
+        "Blurred vision",
+        "Red eye",
+        "Eye pain",
+        "Dry eyes",
+        "Eye injury"
+      ],
+      "id": "3996"
+    },
+    {
+      "category": "Women’s Health",
+      "issues": [
+        "Pregnancy check-up",
+        "Menstrual problems",
+        "Pelvic pain",
+        "Breast lump",
+        "Menopause symptoms"
+      ],
+      "id": "d6e3"
+    },
+    {
+      "category": "Men’s Health",
+      "issues": [
+        "Prostate check-up",
+        "Erectile dysfunction",
+        "Testicular pain"
+      ],
+      "id": "bb77"
+    },
+    {
+      "category": "Mental Health",
+      "issues": [
+        "Anxiety",
+        "Depression",
+        "Stress management",
+        "Insomnia",
+        "Behavioral changes"
+      ],
+      "id": "4924"
+    },
+    {
+      "category": "Gastrointestinal",
+      "issues": [
+        "Diarrhea",
+        "Constipation",
+        "Nausea / vomiting",
+        "Acid reflux / heartburn",
+        "Blood in stool"
+      ],
+      "id": "eca1"
+    },
+    {
+      "category": "Urology",
+      "issues": [
+        "Urinary tract infection (UTI)",
+        "Painful urination",
+        "Blood in urine",
+        "Kidney stones"
+      ],
+      "id": "4b79"
+    },
+    {
+      "category": "Respiratory",
+      "issues": [
+        "Asthma attack",
+        "Bronchitis",
+        "Pneumonia",
+        "Tuberculosis follow-up"
+      ],
+      "id": "8809"
+    },
+    {
+      "category": "Neurological",
+      "issues": [
+        "Seizures",
+        "Stroke follow-up",
+        "Numbness / tingling",
+        "Tremors"
+      ],
+      "id": "9306"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "rating": 5,
+      "comment": "Excellent care!",
+      "date": "2025-08-13T14:00:00Z"
+    },
+    {
+      "id": "r-1755109465247",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "patientId": "anonymous",
+      "rating": 4,
+      "title": "vary Kind Doctor i ever seen",
+      "comment": "blessed to take treatment with prashanth !!",
+      "date": "2025-08-13T18:24:25.247Z"
+    },
+    {
+      "id": "9929",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "name": "testing",
+      "date": "2025-08-14T02:31:29.984Z",
+      "rating": 5,
+      "comment": "testing"
+    },
+    {
+      "id": "41ca",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "name": "testing",
+      "date": "August 14, 2025",
+      "rating": 5,
+      "comment": "testing"
+    },
+    {
+      "id": "r-1755147889844",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "patientId": "anonymous",
+      "rating": 5,
+      "title": "vary Kind Doctor i ever seen",
+      "comment": "as",
+      "date": "2025-08-14T05:04:49.844Z"
+    },
+    {
+      "id": "r-1755148070990",
+      "doctorId": "3792c806-2838-4781-b265-5f62e91b47d6",
+      "patientId": "anonymous",
+      "rating": 1,
+      "title": "",
+      "comment": "should be well treted",
+      "date": "2025-08-14T05:07:50.990Z"
     }
   ]
 }

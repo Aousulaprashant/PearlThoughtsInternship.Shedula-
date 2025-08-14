@@ -9,21 +9,21 @@ import { useRouter } from "next/navigation";
 interface DoctorCardProps {
   id: string;
   name: string;
-  specialization: string;
-  location: string;
+  specialty: string;
+  address: string;
   fee: string;
   phone: string;
-  image: string;
+  profileImage: string;
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({
   id,
   name,
-  specialization,
-  location,
+  specialty,
+  address,
   fee,
   phone,
-  image,
+  profileImage,
 }) => {
   const router = useRouter();
 
@@ -33,19 +33,19 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
   return (
     <div className="bg-white rounded-2xl shadow-md w-full max-w-sm">
       <div className="relative w-full h-56 rounded-xl overflow-hidden bg-gray-100">
-        <Image src={image} alt={name} fill className="object-contain" />
+        <Image src={profileImage} alt={name} fill className="object-contain" />
       </div>
 
       <div className="flex justify-between px-2.5">
         <div className="mt-4 space-y-1 p-2">
           <h3 className="text-lg font-bold text-blue-900">{name}</h3>
-          <p className="text-sm text-gray-600">{specialization}</p>
+          <p className="text-sm text-gray-600">{specialty}</p>
         </div>
 
         <div className="mt-3 space-y-2 text-sm text-gray-700">
           <div className="flex items-center gap-2">
             <FaMapMarkerAlt className="text-blue-500" />
-            <span>{location}</span>
+            <span>{address}</span>
           </div>
           <div className="flex items-center gap-2">
             <PiCurrencyCircleDollarFill className="text-blue-500" />
@@ -65,10 +65,12 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
           Book Now
         </button>
         <button
-          onClick={handleClick}
+          onClick={() => {
+            router.push(`/PatientEnd_doctorProfle/${id}`);
+          }}
           className="flex-1 text-blue-800 font-medium underline hover:text-blue-600 transition"
         >
-          Details
+          View Profile
         </button>
       </div>
     </div>
