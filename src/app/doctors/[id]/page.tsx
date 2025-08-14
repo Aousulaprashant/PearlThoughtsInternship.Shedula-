@@ -13,7 +13,6 @@ import { motion } from "framer-motion";
 import ReceiptPage from "@/components/Reciptpage";
 import axiosInstance from "@/utiles/axiosInstance";
 import { useRouter } from "next/navigation";
-import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
 type Review = {
@@ -301,7 +300,6 @@ const DoctorDetails = () => {
 
       if (res.status === 201) {
         setAppointmentDetails(payload); // This sets data for Receipt
-        toastr.success("Appointment created successfully!");
 
         // Delay PDF download until DOM is ready
         setTimeout(() => {
@@ -311,7 +309,6 @@ const DoctorDetails = () => {
         router.push("/appointments");
       } else {
         alert("Failed to save appointment. Try again.");
-        toastr.error("Something went wrong!");
       }
     } catch (err) {
       console.error("Error booking appointment:", err);

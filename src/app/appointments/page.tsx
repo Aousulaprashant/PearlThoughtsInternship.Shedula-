@@ -42,6 +42,8 @@ export default function AppointmentsPage() {
         const res = await axiosInstance.get("/appointments");
         const allAppointments: Appointment[] = res.data;
 
+        console.log(res);
+
         const userAppointments = allAppointments.filter(
           (appt) =>
             appt.patientId === user.id ||
