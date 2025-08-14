@@ -13,6 +13,8 @@ import { motion } from "framer-motion";
 import ReceiptPage from "@/components/Reciptpage";
 import axiosInstance from "@/utiles/axiosInstance";
 import { useRouter } from "next/navigation";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 type Review = {
   name: string;
@@ -24,19 +26,23 @@ type Review = {
 type Doctor = {
   id: string;
   name: string;
+  profileImage: any;
+  address: string;
   specialty?: string;
   specialization?: string; // some data might use this key
   degree?: string;
   about: string;
+  workingDays: any;
   patients?: string;
+  reviews: string | number;
   experience?: string;
   rating: string | number;
-  reviews: string | number;
   service?: string;
   availability?: {
     days?: string; // e.g. "Monday to Friday"
     workingHours?: string; // e.g. "10 AM to 3 PM" or "10:30 am to 3:00 pm"
   };
+  workingHours: any;
   image: string;
   location: string;
   phone: string;
@@ -221,7 +227,7 @@ const DoctorDetails = () => {
 
     // --- 1️⃣ Convert workingDays to string for parsing ---
     const allowedDaysStr = doctorData.workingDays
-      ?.map((day) => `${day.start} to ${day.end}`)
+      ?.map((day: any) => `${day.start} to ${day.end}`)
       .join(", "); // e.g., "Tuesday to Saturday"
 
     // --- 2️⃣ Convert 24-hour workingHours to 12-hour string ---
@@ -233,7 +239,7 @@ const DoctorDetails = () => {
     };
 
     const workingTimeStr = doctorData.workingHours
-      ?.map((h) => `${convert24to12(h.start)} to ${convert24to12(h.end)}`)
+      ?.map((h: any) => `${convert24to12(h.start)} to ${convert24to12(h.end)}`)
       .join(", "); // e.g., "11:00 AM to 8:00 PM"
 
     // --- 3️⃣ Parse allowed weekdays ---
@@ -295,7 +301,7 @@ const DoctorDetails = () => {
 
       if (res.status === 201) {
         setAppointmentDetails(payload); // This sets data for Receipt
-        setConfirmationOpen(true); // Show modal
+        toastr.success("Appointment created successfully!");
 
         // Delay PDF download until DOM is ready
         setTimeout(() => {
@@ -305,6 +311,7 @@ const DoctorDetails = () => {
         router.push("/appointments");
       } else {
         alert("Failed to save appointment. Try again.");
+        toastr.error("Something went wrong!");
       }
     } catch (err) {
       console.error("Error booking appointment:", err);
@@ -387,15 +394,14 @@ const DoctorDetails = () => {
               doctorId={doctorData.id}
               apiBaseUrl="http://localhost:5000"
               onAfterSubmit={(newReviewList, newCount) => {
-                setDoctorData((prev) =>
+                setDoctorData((prev): Doctor | null =>
                   prev
                     ? {
                         ...prev,
-                        reviewList: newReviewList,
-                        reviews:
-                          typeof prev.reviews === "number"
-                            ? newCount
-                            : String(newCount),
+                        reviewList: newReviewList as Review[],
+                        reviews: (typeof prev.reviews === "number"
+                          ? newCount
+                          : String(newCount)) as string | number,
                       }
                     : prev
                 );

@@ -20,7 +20,7 @@ import { useUser } from "@/context/UseContext-login";
 import axiosInstance from "@/utiles/axiosInstance";
 
 interface Medicine {
-  medicine: string;
+  medicine: any;
   dosage: string;
   duration: string;
   route?: string;
@@ -107,7 +107,7 @@ export default function PrescriptionView({
         <div className="flex justify-between items-center border-b border-gray-200 pb-5 mb-5">
           <div>
             <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-              <FaUserMd className="text-blue-600 text-xl" /> {user.name}
+              <FaUserMd className="text-blue-600 text-xl" /> {user?.name}
             </h2>
             {doctorSpecialization && (
               <p className="text-sm text-gray-600 flex items-center gap-1">
@@ -243,7 +243,7 @@ export default function PrescriptionView({
           </div>
         )}
 
-        {/* Advice */}
+        {/* Advice
         {advice && advice.length > 0 && (
           <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
             <h3 className="text-sm font-semibold text-green-800 flex items-center gap-2 mb-2">
@@ -255,7 +255,7 @@ export default function PrescriptionView({
               ))}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Buttons */}
@@ -301,7 +301,7 @@ export default function PrescriptionView({
           clinicAddress={clinicAddress || "123 Default Street, City"} // fallback
           date={date}
           docsignature={docsignature}
-          advice={advice || []}
+          // advice={advice || []}
         />
       )}
     </motion.div>

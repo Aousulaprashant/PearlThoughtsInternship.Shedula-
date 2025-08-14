@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { FiEdit2 } from "react-icons/fi";
 import { MdDeleteOutline, MdOutlineSaveAs } from "react-icons/md";
 import { motion } from "framer-motion";
+import axiosInstance from "@/utiles/axiosInstance";
 
 // Adjusted Prescription type
 type Prescription = {
@@ -40,7 +41,7 @@ export default function ViewPrescriptions() {
 
   async function fetchPrescriptions() {
     try {
-      const res = await axios.get(`http://localhost:5000/prescriptions`);
+      const res = await axiosInstance.get(`/prescriptions`);
       const filtered = res.data.filter(
         (p: Prescription) => p.appointmentId === appointmentId
       );
@@ -53,10 +54,7 @@ export default function ViewPrescriptions() {
   async function handleSave(presc: Prescription) {
     setSavingId(presc.id);
     try {
-      await axios.patch(
-        `http://localhost:5000/prescriptions/${presc.id}`,
-        presc
-      );
+      await axiosInstance.patch(`/prescriptions/${presc.id}`, presc);
       toast.success("Prescription updated");
       setEditModes((prev) => ({ ...prev, [presc.id]: false }));
     } catch (err) {
@@ -71,7 +69,7 @@ export default function ViewPrescriptions() {
 
     setDeletingId(id);
     try {
-      await axios.delete(`http://localhost:5000/prescriptions/${id}`);
+      await axiosInstance.delete(`/prescriptions/${id}`);
       toast.success("Deleted successfully");
       setPrescriptions((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {

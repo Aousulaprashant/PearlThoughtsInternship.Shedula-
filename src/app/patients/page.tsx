@@ -10,6 +10,7 @@ import CreatePrescriptionModal from "@/components/CreatePrescriptionModal";
 import Sidebar from "@/components/DoctorSlideBar";
 import Link from "next/link";
 import { useUser } from "@/context/UseContext-login";
+import axiosInstance from "@/utiles/axiosInstance";
 
 // Dummy patient data
 type Patient = {
@@ -38,14 +39,13 @@ export default function PatientsPage() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const res = await fetch("http://localhost:5000/appointments"); // Update port if needed
-        const data = await res.json();
-
+        const res = await axiosInstance.get("/appointments"); // Update port if needed
+        const data = res.data;
         console.log("All appointments:", data);
 
         // Filter appointments by logged-in doctor and completed status
         const doctorAppointments = data.filter(
-          (item: any) => item.iscompleted === true && item.doctorId === user.id
+          (item: any) => item.iscompleted === true && item.doctorId === user?.id
         );
 
         console.log("Doctor's completed appointments:", doctorAppointments);
@@ -184,16 +184,9 @@ export default function PatientsPage() {
                         onChange={async (e) => {
                           const newStatus = e.target.value as Patient["status"];
                           try {
-                            await fetch(
-                              `http://localhost:5000/appointments/${p.id}`,
-                              {
-                                method: "PATCH",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                  HeathStatus: newStatus,
-                                }),
-                              }
-                            );
+                            await axiosInstance.patch(`/appointments/${p.id}`, {
+                              HeathStatus: newStatus,
+                            });
 
                             setPatients((prev) =>
                               prev.map((patient) =>
@@ -307,7 +300,7 @@ export default function PatientsPage() {
             isOpen={openCreate}
             onClose={() => setOpenCreate(false)}
             appointmentId={selectedPatient.id}
-            patientId={selectedPatient.id} // replace with actual patient.medicalNumber if available
+            patientId={selectedPatient.id}
             onCreated={() => {
               setOpenCreate(false);
               location.reload();

@@ -45,6 +45,7 @@ type Appointment = {
   location?: string;
   fee?: string;
   email?: string;
+  primaryIssue: any;
   status?: string;
   isCompleted?: boolean;
   diagnosis?: string;
@@ -68,7 +69,7 @@ type Prescription = {
   date: string;
   diagnosis?: string;
   medicines: Medicine[];
-  advices?: string[];
+  advice?: string[];
   notes?: string;
   doctorName?: string;
   doctorSpecialization?: string;
@@ -286,7 +287,6 @@ export default function PatientPage() {
     try {
       const dataUrl = await toPng(historyRef.current, {
         cacheBust: true,
-        useCORS: true,
       });
 
       const pdf = new jsPDF("p", "mm", "a4");
@@ -704,14 +704,14 @@ export default function PatientPage() {
                         )}
                       </div>
 
-                      {presc?.advices && presc.advices.length > 0 && (
+                      {presc?.advice && presc.advice.length > 0 && (
                         <div className="mt-3">
                           <h5 className="font-semibold text-blue-600">
                             Advices
                           </h5>
                           <ul className="list-disc list-inside text-gray-700">
-                            {presc.advices.map((advice, i) => (
-                              <li key={i}>{advice}</li>
+                            {presc.advice.map((advic, i) => (
+                              <li key={i}>{advic}</li>
                             ))}
                           </ul>
                         </div>
@@ -765,10 +765,13 @@ export default function PatientPage() {
                   <PrescriptionView
                     patientName={patientInfo.name}
                     patientId={patientInfo.medicalNumber}
-                    medicines={presc.medicines}
+                    patientAge={patientInfo.age}
+                    patientGender={patientInfo.gender}
+                    clinicAddress={patientInfo.address}
+                    medicines={presc.medicines as any}
                     doctorName={presc.doctorName || "Clinic Doctor"}
                     date={presc.date}
-                    advices={presc.advices || []}
+                    advice={presc.advice || []}
                   />
                 </div>
               ))}

@@ -10,6 +10,8 @@ type EditPrescriptionProps = {
   isOpen: boolean;
   onClose: () => void;
   prescriptionId: string;
+  medicineIndex: number;
+  currentMedicine: any;
   onUpdated: () => void;
 };
 

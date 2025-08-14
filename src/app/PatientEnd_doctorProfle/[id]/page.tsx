@@ -26,6 +26,7 @@ import {
 } from "react-icons/md";
 import { useUser } from "@/context/UseContext-login";
 import axios from "axios";
+import axiosInstance from "@/utiles/axiosInstance";
 
 // ================= Types =================
 interface Doctor {
@@ -143,8 +144,8 @@ async function fetchPrescriptions(
 ): Promise<Prescription[]> {
   try {
     // Fetch prescriptions filtered by both doctorId and patientId
-    const query = `${API}/prescriptions?doctorId=${doctorId}&patientId=${patientId}`;
-    const response = await axios.get<Prescription[]>(query);
+    const query = `/prescriptions?doctorId=${doctorId}&patientId=${patientId}`;
+    const response = await axiosInstance.get<Prescription[]>(query);
 
     return response.data;
   } catch (error) {
@@ -157,7 +158,7 @@ async function fetchPrescriptions(
 export default function DoctorProfilePage() {
   const params = useParams<{ id: string }>();
   const search = useSearchParams();
-  const user = useUser();
+  const { user } = useUser();
   const doctorId = params?.id as string;
   const patientId = (search?.get("patientId") || undefined) as
     | string
@@ -174,6 +175,7 @@ export default function DoctorProfilePage() {
   useEffect(() => {
     let active = true;
     if (!doctorId) return;
+    if (!user?.id) return;
     setLoading(true);
     Promise.all([
       fetchDoctor(doctorId),

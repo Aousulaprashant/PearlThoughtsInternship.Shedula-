@@ -18,13 +18,14 @@ import {
 import PrescriptionView from "./viewPrescription";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/utiles/axiosInstance";
 
 type Appointment = {
   id: string;
-  doctorName: string;
-  doctorImage: string;
-  appointmentDate: string;
   doctorId: string;
+  doctorName: string;
+  profileImage: string;
+  appointmentDate: string;
   appointmentTime: string;
   location: string;
   isCompleted: boolean;
@@ -68,10 +69,10 @@ export default function AppointmentCard({
   const handleViewPrescription = async () => {
     try {
       setLoading(true);
-      const res = await fetch(
-        `http://localhost:5000/prescriptions?appointmentId=${appointment.id}`
-      );
-      const data = await res.json();
+      const response = await axiosInstance.get(`/prescriptions`, {
+        params: { appointmentId: appointment.id },
+      });
+      const data = response.data;
 
       if (!data || data.length === 0) {
         toast.error("No prescription is given");
@@ -134,7 +135,7 @@ export default function AppointmentCard({
   useEffect(() => {
     if (!dropdownOpen) return;
 
-    const handleOutside = (ev: MouseEvent) => {
+    const handleOutside = (ev: globalThis.MouseEvent) => {
       const target = ev.target as Node;
       const btn = buttonRef.current;
       const dd = dropdownRef.current;
@@ -187,7 +188,7 @@ export default function AppointmentCard({
       {/* Doctor Image */}
       <div className="shrink-0">
         <img
-          src={appointment.profileImage}
+          src={appointment.profileImage || "/Herodoc/default-avatar.png"}
           alt={appointment.doctorName}
           className="w-20 h-20 object-cover rounded-full border-4 border-blue-100"
         />

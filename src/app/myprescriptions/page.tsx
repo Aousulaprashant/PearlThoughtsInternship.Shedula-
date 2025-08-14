@@ -12,6 +12,7 @@ import {
   FaInfoCircle,
   FaSpinner,
 } from "react-icons/fa";
+import axiosInstance from "@/utiles/axiosInstance";
 
 interface Prescription {
   id: string;
@@ -46,8 +47,8 @@ export default function MyPrescriptions() {
     const fetchData = async () => {
       try {
         const [presRes, appRes] = await Promise.all([
-          axios.get<Prescription[]>("http://localhost:5000/prescriptions"),
-          axios.get<Appointment[]>("http://localhost:5000/appointments"),
+          axiosInstance.get<Prescription[]>("/prescriptions"),
+          axiosInstance.get<Appointment[]>("/appointments"),
         ]);
 
         const filteredPrescriptions = presRes.data.filter(

@@ -16,11 +16,12 @@ type Appointment = {
   appointmentTime: string;
   location: string;
   fee: string;
+  doctorId: string;
   patientId: string;
-  doctorImage: string;
+  profileImage: string;
   status: string;
   specialization: string;
-  isCompleted?: boolean;
+  isCompleted: boolean;
 };
 
 const SECTIONS = ["Pending", "Confirmed", "Rescheduled", "Cancelled"];

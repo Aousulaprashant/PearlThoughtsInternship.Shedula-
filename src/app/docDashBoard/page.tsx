@@ -27,7 +27,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { parse, startOfWeek, getDay, format } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./styles.css";
-import axios from "axios";
 dayjs.extend(isSameOrAfter); // Extend once at the top
 
 const COLORS = ["#3B82F6", "#FBBF24", "#10B981"]; // blue, yellow, green
@@ -50,7 +49,6 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
 
   const today = dayjs().format("YYYY-MM-DD");
-  const RATING_LABELS = ["Excellent", "Great", "Good", "Average"];
   const COLORS = ["#22c55e", "#3b82f6", "#f59e0b", "#ef4444"];
 
   const [reviews, setReviews] = useState<any[]>([]);
@@ -58,8 +56,8 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user?.id) return; // wait until user is available
 
-    axios
-      .get(`http://localhost:5000/reviews?doctorId=${user.id}`)
+    axiosInstance
+      .get(`/reviews?doctorId=${user.id}`)
       .then((res) => {
         setReviews(res.data);
         console.log("Fetched reviews:", res.data);
@@ -69,8 +67,16 @@ const Dashboard = () => {
       });
   }, [user?.id]); // run when doctor ID changes
 
+  const RATING_LABELS = ["Excellent", "Great", "Good", "Average"] as const;
+  type RatingLabel = (typeof RATING_LABELS)[number];
+
   const ratingStats = useMemo(() => {
-    const counts = { Excellent: 0, Great: 0, Good: 0, Average: 0 };
+    const counts: Record<RatingLabel, number> = {
+      Excellent: 0,
+      Great: 0,
+      Good: 0,
+      Average: 0,
+    };
 
     reviews.forEach((r) => {
       if (r.rating >= 5) counts.Excellent++;

@@ -21,6 +21,9 @@ interface Medicine {
   route?: string;
   notes?: string;
   schedule?: string;
+  frequency?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 interface PrintPrescriptionProps {
@@ -34,7 +37,7 @@ interface PrintPrescriptionProps {
   clinicName: string;
   clinicAddress: string;
   date: string;
-  diagnosis?: string; // ✅ add this
+  diagnosis?: string;
   followUpDate?: string;
   additionalNotes?: string;
   advice?: string;
@@ -44,6 +47,7 @@ interface PrintPrescriptionProps {
     pulseRate?: string;
     respiratoryRate?: string;
   };
+  docsignature: string;
 }
 
 export interface PrintPrescriptionHandle {
@@ -138,7 +142,7 @@ const PrintPrescription = forwardRef<
       }}
     >
       {/* WATERMARK */}
-      <img
+      {/* <img
         src="/doccartoon.png"
         alt="Doctor Cartoon Watermark"
         className="absolute"
@@ -152,7 +156,7 @@ const PrintPrescription = forwardRef<
           zIndex: -1,
           pointerEvents: "none",
         }}
-      />
+      /> */}
 
       {/* HEADER */}
       <div className="border-b-4 border-blue-500 pb-4 mb-6">
@@ -314,7 +318,11 @@ const PrintPrescription = forwardRef<
           physical seal. In case of emergencies, visit the nearest hospital.
         </div>
         <div className="text-center">
-          <img src={docsignature} alt="Signature" className="w-28 mx-auto" />
+          <img
+            src={docsignature || "/Herodoc/Signature_image.png"}
+            alt="Signature"
+            className="w-28 mx-auto"
+          />
           <p className="text-sm font-medium">Dr. {doctorName}</p>
         </div>
       </div>

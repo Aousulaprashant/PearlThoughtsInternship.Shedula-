@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import PrescriptionView from "@/components/viewPrescription"; // you already have this
+import axiosInstance from "@/utiles/axiosInstance";
 
 type Appointment = {
   id: string;
@@ -77,15 +78,18 @@ export default function PatientHistoryPage() {
       setLoading(true);
       try {
         // 1) Fetch the appointment used in the URL (this must exist)
-        const apptRes = await axios.get<Appointment>(
-          `http://localhost:5000/appointments/${encodeURIComponent(patined_id)}`
+        const patientIdStr = Array.isArray(patined_id)
+          ? patined_id[0]
+          : patined_id;
+        const apptRes = await axiosInstance.get<Appointment>(
+          `/appointments/${encodeURIComponent(patientIdStr)}`
         );
         const appt = apptRes.data;
         setBaseAppointment(appt);
 
         // 2) Fetch all appointments for same patientName (most recent first)
-        const apptsRes = await axios.get<Appointment[]>(
-          `http://localhost:5000/appointments?patientName=${encodeURIComponent(
+        const apptsRes = await axiosInstance.get<Appointment[]>(
+          `/appointments?patientName=${encodeURIComponent(
             appt.patientName
           )}&_sort=appointmentDate&_order=desc`
         );
@@ -95,10 +99,8 @@ export default function PatientHistoryPage() {
         const enriched = await Promise.all(
           appts.map(async (a) => {
             try {
-              const presRes = await axios.get<Prescription[]>(
-                `http://localhost:5000/prescriptions?appointmentId=${encodeURIComponent(
-                  a.id
-                )}`
+              const presRes = await axiosInstance.get<Prescription[]>(
+                `/prescriptions?appointmentId=${encodeURIComponent(a.id)}`
               );
               const pres =
                 presRes.data && presRes.data.length ? presRes.data[0] : null;
@@ -316,7 +318,7 @@ export default function PatientHistoryPage() {
                   baseAppointment.gender ||
                   "N/A"
                 }
-                medicines={selectedPrescription.medicines || []}
+                medicines={(selectedPrescription.medicines as any) || []}
                 doctorName={
                   selectedPrescription.doctorName ||
                   baseAppointment.doctorName ||

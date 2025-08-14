@@ -9,6 +9,7 @@ type Review = {
   name: string;
   date: string;
   rating: number;
+  doctorId: any;
   comment: string;
 };
 
@@ -20,8 +21,16 @@ type DoctorResponse = {
 interface ReviewFormProps {
   doctorId: string | number;
   apiBaseUrl?: string;
-  onAfterSubmit?: (newReviewList: Review[], newCount: number) => void;
+  onAfterSubmit?: (
+    reviews: Review[] | ((prev: Review[]) => Review[]),
+    count: number | ((prev: number) => number)
+  ) => void;
 }
+
+type OnAfterSubmit = (
+  reviews: Review[] | ((prev: Review[]) => Review[]),
+  count: number | ((prev: number) => number)
+) => void;
 
 const ReviewForm: React.FC<ReviewFormProps> = ({
   doctorId,
@@ -36,6 +45,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const [postingReview, setPostingReview] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
   const [reviewSuccess, setReviewSuccess] = useState<string | null>(null);
+  type OnAfterSubmit = (
+    reviews: Review[] | ((prev: Review[]) => Review[]),
+    count: number | ((prev: number) => number)
+  ) => void;
 
   const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,8 +79,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
       if (postRes.status >= 200 && postRes.status < 300) {
         onAfterSubmit?.(
-          (prevReviews: Review[]) => [...prevReviews, newReview],
-          (prevCount: number) => prevCount + 1
+          (prevReviews) => [...prevReviews, newReview],
+          (prevCount) => prevCount + 1
         );
 
         setReviewForm({ name: "", rating: 5, comment: "" });

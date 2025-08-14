@@ -19,9 +19,10 @@ import toast from "react-hot-toast";
 type CreatePrescriptionProps = {
   isOpen: boolean;
   onClose: () => void;
-  appointmentId: string;
-  patientId: string;
-  onCreated: () => void;
+  appointmentId?: string;
+  prescriptionId?: string;
+  patientId?: any;
+  onCreated: () => void | Promise<void>;
 };
 
 type MedicineEntry = {
@@ -38,7 +39,7 @@ type MedicineEntry = {
 };
 
 type PrescriptionData = {
-  appointmentId: string;
+  appointmentId?: string;
   patientId: string;
   patientName: string;
   patientAge?: string;
@@ -105,7 +106,7 @@ export default function CreatePrescriptionModal({
         // Step 3: Create new with full legal fields
         const newPrescription: PrescriptionData = {
           appointmentId,
-          patientId: appointment.patientId || patientId,
+          patientId: appointment.patientId,
           patientName: appointment.patientName,
           patientAge: appointment.patientAge || "",
           patientGender: appointment.gender || "",
